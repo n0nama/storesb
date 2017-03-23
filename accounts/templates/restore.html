@@ -1,0 +1,58 @@
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Restore password' %}{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/restore/reset.css' %}" type="text/css" media="all">
+  	<link rel="stylesheet" href="{% static 'css/restore/styles.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/restore/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+{% endblock %}
+{% block content %}
+    <h2 class="content__heading content__heading--center">{% trans 'Recover password via e-mail' %}</h2>
+          <div class="content__form form">
+            <form action="{% url 'accounts:restore_send_email' %}" method="post"class="form__holder">
+								<input type="email" class="form__input" id="id_email" name="email" placeholder="E-mail"/>
+             		{% csrf_token %}
+							<input type="submit" id="input-link" value="" class="form__input--btn" />
+						</form>
+            <p class="form__desc">
+							{% if messages or form_email.email.errors %}
+                 {{ form_email.email.errors.as_text }}
+                 {% for message in messages %}
+                    {{ message }}
+                 {% endfor %}
+              {% else %}
+              		{% blocktrans %}
+                     Enter your e-mail, which you used when registering for Sell-n-Buy.
+                    <br>  We will send your password to this address.
+                  {% endblocktrans %}
+              {% endif %}
+						</p>
+          </div>
+          <h2 class="content__heading">{% trans 'Reset your password using the telephone' %}</h2>
+          <form action="{% url 'accounts:restore_send_sms' %}" method="post" class="form__holder">
+              {% csrf_token %}
+              {{ form_phone.phone|add_class_to_formfield:"form__input" }}
+							<input type="submit" id="input-link" value="" class="form__input--btn" />
+          </form>
+          <form action="{% url 'accounts:password_confirm_code' %}" method="post" class="form__holder">
+						{% csrf_token %}
+            {{ form_confirm.confirm_code|add_class_to_formfield:"form__input" }}
+            <input type="submit" id="button-code" value="" class="form__input--btn" />
+          </form>
+          <p class="form__desc form__desc--tel invisible">
+						{% blocktrans %}
+               Enter the phone number that you used when registering for Sell-n-Buy.
+               <br> We will send your password to this number.
+            {% endblocktrans %}
+            {% if phone_form_text %}
+               {{ phone_form_text }}
+            {% endif %}
+					</p>
+          <a href="javascript:history.back()" class="form__btn form__btn--back">{% trans 'back' %}</a>
+{% endblock %}

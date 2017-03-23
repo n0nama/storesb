@@ -1,0 +1,72 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Welcome" %}</title>
+    <link rel="stylesheet" href="{% static 'css/index/reset.css' %}" type="text/css" media="all">
+  <link rel="stylesheet" href="{% static 'css/index/styles.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/index/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/index/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/index/html5.js' %}"></script>
+	<![endif]-->
+    <script src="{% static 'js/online_status.js' %}"></script>
+    {% if request.user.is_authenticated %}
+    <script>
+        $(document).ready(function () {
+            var host = "ws://storesb.com:8888/status/" + {{ request.user.pk }} +"/" ;
+            checkOnline(host);
+        });
+    </script>
+    {% endif %}
+</head>
+<body {% if theme_id == 0 %}class="green"{% else %}class="orange"{% endif %}>
+    <div id="wrapper">
+        <header class="header">
+
+        </header>
+        
+        <main class="main">
+            <div class="main__logo">
+                <form action="{% url 'goods:search' %}" method="get">
+                    {{ form.query|add_class_to_formfield:"main__search" }}
+			    </form>
+            </div>
+        </main>
+		<footer class="footer">
+            <ul class="footer__nav nav">
+                <li class="nav__item">
+                    <a href="/main/for-business" class="nav__link">{% trans 'For your business' %}</a>
+                </li>
+                <li class="nav__item">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <select name="language" class="{% if theme_id == 0 %}select-green{% else %}select-orange{% endif %}" onchange="this.form.submit()">
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                    {{ language.name_local }} ({{ language.code }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </li>
+                <li class="nav__item">
+                    <a href="/accounts/login" class="nav__link">{% trans 'Sign in' %}</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/main/rules" class="nav__link">{% trans 'Rules' %}</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/main/privacy" class="nav__link">{% trans 'Terms and Privacy' %}</a>
+                </li>
+            </ul>
+        </footer>	
+	</div>
+</body>
+</html>

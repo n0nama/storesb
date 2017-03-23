@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/Mstyle.css" type="text/css" media="all">
+<link rel="stylesheet" href="css/slider.css" type="text/css" media="all">
+<link href="css/jquery.bxslider.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" type="text/css" media="all">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/productslider.js"></script>
+<!-- bxSlider Javascript file -->
+<script src="js/jquery.bxslider.min.js"></script>
+<!-- bxSlider CSS file -->
+
+<!--[if IE]>
+	<link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	<script type="text/javascript" src="js/html5.js"></script>
+<![endif]-->
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.bxslider').bxSlider({
+  		auto: true,
+  		autoControls: true
+  });
+
+  	$('.tab2-window').hide();
+    $('.tab3-window').hide();
+
+	$('.about-tabs span').click(function() {
+        $('.about-tabs span').removeClass('active');
+        $(this).addClass('active');
+    });
+    $('.tab1').click(function() {
+    	
+    	$('.tab1-window').show();
+    	$('.tab2-window').hide();
+    	$('.tab3-window').hide();
+    	$("#mcs_container").mCustomScrollbar("vertical",400,"easeOutCirc",0,"auto","yes","yes",10);
+    });
+    $('.tab2').click(function() {
+    	
+    	$('.tab1-window').hide();
+    	$('.tab2-window').show();
+    	$('.tab3-window').hide();
+    	$("#mcs_container").mCustomScrollbar("vertical",400,"easeOutCirc",0,"auto","yes","yes",10);
+    });
+    $('.tab3').click(function() {
+    	
+    	$('.tab1-window').hide();
+    	$('.tab2-window').hide();
+    	$('.tab3-window').show();
+    	$("#mcs_container").mCustomScrollbar("vertical",400,"easeOutCirc",0,"auto","yes","yes",10);
+    });
+
+});
+ 
+$(function() {
+ 
+$(window).scroll(function() {
+ 
+if($(this).scrollTop() != 0) {
+ 
+$('#up').fadeIn();
+ 
+} else {
+ 
+$('#up').fadeOut();
+ 
+}
+ 
+});
+ 
+$('#up').click(function() {
+ 
+$('body,html').animate({scrollTop:0},800);
+ 
+});
+ 
+});
+
+
+
+$(window).load(function(){
+$('#category-container').masonry({
+// указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	  itemSelector: '#category',
+// указываем класс элемента являющегося блоком в нашей сетке
+          singleMode: true,
+// true - если у вас все блоки одинаковой ширины
+	  isResizable: true,
+// перестраивает блоки при изменении размеров окна
+	  isAnimated: true,
+// анимируем перестроение блоков
+          animationOptions: { 
+	      queue: true, 
+	      duration: 500 
+	  }
+// опции анимации - очередь и продолжительность анимации
+	}); 
+	
+	}); 
+
+ 
+
+</script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		var modalsub = 1;
+	
+		$('#about-signup').click(function(){
+			if(modalsub==1){
+				$('#about-signup').html('Подписано');
+				$('.green #about-signup').css('background', '#b1fe00');
+				$('.orange #about-signup').css('background', '#ff6600');
+				$('#about-signup').css('color', '#fff');
+				modalsub = 2;
+			} else {
+				$('#about-signup').html('Подписаться');
+				$('#about-signup').css('background', '#fffefc');
+				$('.green #about-signup').css('color', '#b1fe00');
+				$('.orange #about-signup').css('color', '#ff6600');
+				modalsub = 1;
+			}
+		});
+
+	}); //Конец ready
+
+</script>
+
+</head>
+
+
+
+
+<body>
+
+<div id="wrapper" class="orange">
+<div id="up"></div>
+<a href="#" id="vitrina-icon-bottom">
+	<span></span>
+	<img src="images/vitrina-icon-bottom-n.png">
+</a>
+<a href="#" id="cart-icon-bottom">
+	<span></span>
+	<img src="images/cart-icon-bottom-n.png">
+</a>
+	<header class="black">
+		<ul>
+			<li><div></div></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><a href="#"></a><span>258</span></li>
+			<li><div></div></li>
+		</ul>
+		<div class="clear"></div>
+	</header>
+
+
+<div class="aboutwrapper">
+	<div class="aboutleft">
+		<div class="aboutuser">
+			<div class="about-ava">
+				<div id="about-user-block">
+					<div id="about-avatar">
+						<img src="tmp/ava.jpg">
+					</div>
+					<a href="#" id="about-avatar-border-main"></a>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<a href="#">Анна Чапман</a>
+			<span>продавец</span>
+		</div>
+		<div class="aboutoptionsproduct">
+			<div class="aboutoptionsproductcomments">5</div>
+			<a href="#" class="aboutwriteuser">Написать</a>
+			<div class="aboutoptionsproductlikes">10</div>
+			<div class="clear"></div>
+		</div>
+
+
+		<div id="mcs_container">
+			<div class="customScrollBox">
+				<div class="container">
+					<div class="content">
+						<div class="aboutreviewproduct">
+							<div class="about-auction">
+								<p>до конца осталось</p>
+								<div class="about-auction-first">1</div>
+								<div class="about-auction-second">0</div>
+								<div class="about-auction-first">0</div>
+								<div class="about-auction-second">5</div>
+								<div class="about-auction-first">2</div>
+								<div class="about-auction-last">5</div>
+							</div>
+							<div class="slider">
+								<img src="#" width="644" height="473">
+								<ul>
+									<li>
+										<a href="tmp/1big.jpg"><img src="tmp/1minsl.png"></a>
+									</li>	
+									<li>
+										<a href="tmp/2big.jpg"><img src="tmp/1minsl.png"></a>
+									</li>
+									<li>
+										<a href="tmp/3big.jpg"><img src="tmp/1minsl.png"></a>
+									</li>
+									<li>
+										<a href="tmp/4big.jpg"><img src="tmp/1minsl.png"></a>
+									</li>
+									<li>
+										<a href="tmp/5big.jpg"><img src="tmp/1minsl.png"></a>
+									</li>
+								</ul>
+								<div class="clear"></div>
+							</div>	
+							<div class="clear"></div>
+							<div id="about-title">Пылесос Zanussi Zan 730</div>
+							<div id="about-condition">Состояние: Новый</div>
+							<a href="#" id="about-adress">Italy, Madrid</a>
+							<div id="about-delivery">Доставка: Россия, Китай, Новая Зеландия...</div>
+							<div id="about-number">Количество товара в наличии: 15 шт.</div>
+							<div class="about-fix-price"><p>750 $</p> <span>fix price</span></div>
+							<div class="about-auction-price"><p>500 $</p> <span>15 ставок</span></div>
+							<div class="clear"></div>
+							<a href="#" id="about-sale">Редактировать</a>
+							<a href="#" id="about-cart">Удалить</a>
+							<ul id="about-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+							<ul id="social">
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<div class="aboutinfoproduct">
+							<div class="about-tabs" class="tab1">
+									<span class="tab1 active">описание</span>
+									<span class="tab2">доставка и оплата</span>
+									<span class="tab3">о продавце</span>
+									<div class="clear"></div>
+								<div class="tab1-window">
+									<h3>характеристики</h3>
+									<div class="tab1-window-td1">
+										<p>торговая марка</p>
+										<h4>Zanussi</h4>
+										<p>модель</p>
+										<h4>ZAN 730</h4>
+									</div>
+									<div class="tab1-window-td2">
+										<p>материал</p>
+										<h4>пластик</h4>
+										<p>размер</p>
+										<h4>50x70x30</h4>
+									</div>
+									<div class="tab1-window-td3">
+										<p>цвет</p>
+										<h4>Темно-серый</h4>
+										<p>вес</p>
+										<h4>1.5 Kg</h4>
+									</div>
+									<div class="tab1-window-td4">
+										<p>комплектация</p>
+										<h4>заводская</h4>
+										<p>производитель</p>
+										<h4>Zanussi</h4>
+									</div>
+									<h3>описание</h3>
+									<a href="#" class="aboutinfoproduct-button">показать оригинальный текст</a>
+									<div class="introtext1">Автоматический перевод выполненяется сервисом Google Translate и может быть неточным.</div>
+									<div class="introtext2">ZAN 730 небольшой, но мощный, легкий в использовании Тарированная очиститель цилиндр, который идеально подходит для домов, требующих компактный пылесос.Мощный немного чище обеспечивает превосходное мощность всасывания, в то время как микро система фильтрации волокна захватывает пыльцу, пылевых клещей и аллергенов для более чистого дома.</div>
+								</div>
+								<div class="tab2-window">
+									<h3>Доставка</h3>
+									<p>вид доставки</p>
+									<h4>почта</h4>
+									<p>Местонахождение</p>
+									<div class="aboutinfoproduct-place"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+									<p>доставка</p>
+									<h4>все страны</h4>
+									<p>исключение</p>
+									<a href="#">США,</a>
+									<a href="#">Австрия,</a>
+									<a href="#">Бельгия,</a>
+									<a href="#">Болгария,</a>
+									<a href="#">Хорватия,</a>
+									<a href="#">Кипр,</a>
+									<a href="#">Чехия,</a>
+									<a href="#">Дания,</a>
+									<a href="#">Эстония,</a>
+									<a href="#">Финляндия,</a>
+									<a href="#">Франция,</a>
+									<a href="#">Германия,</a>
+									<a href="#">Греция,</a>
+									<a href="#">Венгрия,</a>
+									<a href="#">Исландия,</a>
+									<a href="#">Ирландия,</a>
+									<a href="#">Италия,</a>
+									<a href="#">Латвия,</a>
+									<a href="#">Лихтенштейн,</a>
+									<a href="#">Литва,</a>
+									<a href="#">Люксембург,</a>
+									<a href="#">Мальта,</a>
+									<a href="#">Нидерланды,</a>
+									<a href="#">Норвегия,</a>
+									<a href="#">Польша,</a>
+									<a href="#">Португалия,</a>
+									<a href="#">Румыния,</a>
+									<a href="#">Словакия,</a>
+									<a href="#">Словения,</a>
+									<a href="#">Испания,</a>
+									<a href="#">Швеция,</a>
+									<a href="#">Швейцария,</a>
+									<a href="#">Великобритания</a>
+									<br>
+									<br>
+									<p>срок доставки</p>
+									<h4>Приблизительно между Вт. 7 апр. и Чт. 30 апр.</h4>
+									<div class="about-text">
+										Расчетный срок доставки включает в себя время обработки заказа продавцом, почтовый индекс отправителя и получателя, время получения заказа службой доставки, зависит от выбранной службы доставки и срока получения обработанного платежа. Время доставки может варьироваться, особенно в пиковые периоды.
+									</div>
+									<h3>возврат</h3>
+									<div class="aboutinfoproduct-td1">
+										<p>возврат товара</p>
+										<h4>14 дней</h4>
+									</div>
+									<div class="aboutinfoproduct-td2">
+										<p>Возмещение стоимости товара</p>
+										<h4>Денежный эквивалент</h4>
+									</div>
+									<div class="aboutinfoproduct-td3">
+										<p>Обратная доставка</p>
+										<h4>за счет покупателя</h4>
+									</div>
+									<div class="clear"></div>
+									<h3>подробнее</h3>
+									<a href="#" class="aboutinfoproduct-button">показать оригинальный текст</a>
+									<div class="introtext1">Автоматический перевод выполненяется сервисом Google Translate и может быть неточным.</div>
+									<div class="introtext2">ZAN 730 небольшой, но мощный, легкий в использовании Тарированная очиститель цилиндр, который идеально подходит для домов, требующих компактный пылесос.Мощный немного чище обеспечивает превосходное мощность всасывания, в то время как микро система фильтрации волокна захватывает пыльцу, пылевых клещей и аллергенов для более чистого дома.</div>
+								</div>
+								<div class="tab3-window">
+									<div class="tab3-window-td1">
+										<p style="margin-bottom:7px;">Адрес</p>
+										<div class="aboutinfoproduct-place" style="margin-bottom:20px;"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+										<p>Контактный телефон</p>
+										<h4>8(916)231 56 87</h4>
+										<p>Доп. телефон</p>
+										<h4>8(925)123 65 78</h4>
+									</div>
+									<div class="tab3-window-td2">
+										<p>Skype</p>
+										<h4>casualty</h4>
+										<p>E-mail</p>
+										<h4>casualtywear@gmail.com</h4>
+										<p>Сайт</p>
+										<h4>casualty.com</h4>
+									</div>
+									<div class="tab3-window-td3">
+										<p>Является</p>
+										<h4>Частное лицо</h4>
+										<p>Пол</p>
+										<h4>Мужской</h4>
+										<p>Instagramm</p>
+										<h4>Casualty_social</h4>
+									</div>
+									<div class="clear"></div>
+									<p>Был-а на сайте  30.05.2015</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="dragger_container">
+						<div class="dragger"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="aboutright">
+		<div class="aboutmoreproductcategory">
+			<h3>другие товары этой категории</h3>
+			<ul>
+				<li><a href="#"><img src="tmp/1imgr.jpg" alt=""></a></li>
+				<li><a href="#"><img src="tmp/1imgr.jpg" alt=""></a></li>
+				<li><a href="#"><img src="tmp/1imgr.jpg" alt=""></a></li>
+				<li><a href="#"><img src="tmp/1imgr.jpg" alt=""></a></li>
+				<li><a href="#"><img src="tmp/1imgr.jpg" alt=""></a></li>
+				<li><a href="#"><img src="tmp/1imgr.jpg" alt=""></a></li>
+			</ul>
+			<div class="clear"></div>
+			<a href="#" class="aboutproductmorebutton">и еще...</a>
+		</div>
+		<div class="aboutmoreshowcasecategory">
+			<h3>другие витрины этой категории</h3>
+			<a href="#"><img src="tmp/2imgr.jpg" alt="" class="showcasebigimg"></a>
+			<ul>
+				<li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>
+				<li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>
+				<li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>
+			</ul>
+			<div class="clear"></div>
+			<div id="about-signup">подписаться</div>
+		</div>
+		<div class="aboutsellerscategory">
+			<h3>продавцы этой категории</h3>
+			<ul id="seller-list">
+							<li>
+								<div id="seller-users">
+									<img src="tmp/ava-s.jpg">
+									<a href="#" id="seller-users-ramka"></a>
+								</div>
+								<a href="#" id="seller-name">PILISOSIYA</a>
+								<a href="#" class="seller-name-second">катерина</a>
+									<div class="clear"></div>
+							</li>
+							<li>
+								<div id="seller-users">
+									<img src="tmp/ava-s.jpg">
+									<a href="#" id="seller-users-ramka"></a>
+								</div>
+								<a href="#" id="seller-name">Dark_devices</a>
+								<a href="#" class="seller-name-second">Dark doll92</a>
+								<div class="clear"></div>
+							</li>
+							<li>
+								<div id="seller-users">
+									<img src="tmp/ava-s.jpg">
+									<a href="#" id="seller-users-ramka"></a>
+								</div>
+								<a href="#" id="seller-name">Royal_Clining</a>
+								<a href="#" class="seller-name-second">еЛИЗОВЕТА</a>
+								<div class="clear"></div>
+							</li>
+							<li>
+								<div id="seller-users">
+									<img src="tmp/ava-s.jpg">
+									<a href="#" id="seller-users-ramka"></a>
+								</div>
+								<a href="#" id="seller-name">JAck_of_trades</a>
+								<a href="#" class="seller-name-second">Machoman96</a>
+								<div class="clear"></div>
+							</li>
+							<li>
+								<div id="seller-users">
+									<img src="tmp/ava-s.jpg">
+									<a href="#" id="seller-users-ramka"></a>
+								</div>
+								<a href="#" id="seller-name">muzh_na_chas</a>
+								<a href="#" class="seller-name-second">Степан</a>
+								<div class="clear"></div>
+							</li>
+						</ul>
+			<a href="#" class="aboutsellermorebutton">еще</a>
+		</div>
+		<div class="aboutsliderproduct">
+			<ul class="bxslider">
+			 	<li>
+			  		<span>500 $</span>
+			  		<a href="#">
+				  		<img src="tmp/1imgsl.jpg" alt="">
+				  		<h3>Пылесос Zanussi Zan 730</h3>
+			  		</a>
+			  		<a href="#" class="about-slider-button">купить</a>
+			  	</li>
+				 <li>
+			  		<span>500 $</span>
+			  		<a href="#">
+				  		<img src="tmp/1imgsl.jpg" alt="">
+				  		<h3>Пылесос Zanussi Zan 730</h3>
+			  		</a>
+			  		<a href="#" class="about-slider-button">купить</a>
+			  	</li>
+			  	<li>
+			  		<span>500 $</span>
+			  		<a href="#">
+				  		<img src="tmp/1imgsl.jpg" alt="">
+				  		<h3>Пылесос Zanussi Zan 730</h3>
+			  		</a>
+			  		<a href="#" class="about-slider-button">купить</a>
+			  	</li>
+			  	<li>
+			  		<span>500 $</span>
+			  		<a href="#">
+				  		<img src="tmp/1imgsl.jpg" alt="">
+				  		<h3>Пылесос Zanussi Zan 730</h3>
+			  		</a>
+			  		<a href="#" class="about-slider-button">купить</a>
+			  	</li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+	<div class="clear"></div>
+	<h3 class="about-title-one">покупатели этого товара также приобрели</h3>
+	<div class="aboutmoresaleusers">
+		<ul>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="tmp/1imgb.jpg" alt="">
+					<h3>Пылесос Zanussi Zan 730</h3>
+					<span>500 $</span>
+				</a>
+				<a href="#" class="aboutmoresaleusers-sale">купить</a>
+				<div id="aboutmoresaleusers-users">
+					<img src="tmp/ava-s.jpg">
+					<a href="#" id="aboutmoresaleusers-users-ramka"></a>
+				</div>
+				<div class="aboutmoresaleusers-status">Продавец</div>
+				<a href="#" class="aboutmoresaleusers-name">Tyan</a>
+			</li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	<a href="#" class="about-banner">
+		<img src="tmp/banner.jpg" alt="">
+	</a>
+	<h3 class="about-title-two">похожие товары</h3>
+
+
+
+
+
+
+
+	<div class="similar-product">
+		<div id="category-container">
+					<div id="category">
+						<a href="#"><img src="tmp/1m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/2m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/3m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/4m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/5m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/2m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/5m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/4m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/1m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/3m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/4m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/2m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/5m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/3m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/2m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/1m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div id="category">
+						<a href="#"><img src="tmp/4m.jpg"></a>
+						<a href="#" id="site-min">от crisscross.com</a>
+						<div id="rev-min">Rowenta  XLM 500, Сool power, rowenta, luxury</div>
+						<div id="place-min"><a href="#">Italy</a>, <a href="#">Madrid</a></div>
+						<div id="tags-min-block">
+							<a href="#" class="tags-min">#пылесосы</a>,  <a href="#" class="tags-min">#Rowenta</a>
+							<ul id="modal-statistics">
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<li>50</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<a href="#" id="icon-min"><img src="tmp/icon-min.jpg"></a>
+						<h4><a href="#">Анна Чапман</a></h4>
+						<span>online</span>
+						<div id="price-min">500$</div>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+	</div>
+</div>
+<footer>
+	<h3>Присоединяйтесь к нам</h3>
+	<ul id="social">
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+	</ul>
+	<div id="copyright">Sell-n-buy. all rigths reserved. все права защищены<br> arton</div>
+</footer>
+<script type="text/javascript" src="js/masonry.pkgd.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+<script>
+$(window).load(function() {
+	mCustomScrollbars();
+});
+
+function mCustomScrollbars(){
+	/* 
+	Параметры плагина CustomScrollbar: 
+	1) Тип прокрутки (значение: "vertical" или "horizontal")
+	2) Величина перемещения со сглаживанием (0 - сглаживание не используется) 
+	3) Тип сглаживания перемещений 
+	4) Дополнительное место снизу, только для вертикального типа прокрутки (минимальное значение: 1)
+	5) Настройка высоты/ширины панели прокрутки (значение: "auto" или "fixed")
+	6) Поддержка прокрутки колесиком мыши (значение: "yes" или "no")
+	7) Прокрутка с помощью клавиш (значения: "yes" или "no")
+	8) Скорость прокрутки (значение: 1-20, 1 соответствует самой медленной скорости)
+	*/
+	$("#mcs_container").mCustomScrollbar("vertical",400,"easeOutCirc",0,"auto","yes","yes",10); 
+}
+
+/* Функция для обхода ошибки с 10000 px для jquery.animate */
+$.fx.prototype.cur = function(){
+    if ( this.elem[this.prop] != null && (!this.elem.style || this.elem.style[this.prop] == null) ) {
+      return this.elem[ this.prop ];
+    }
+    var r = parseFloat( jQuery.css( this.elem, this.prop ) );
+    return typeof r == 'undefined' ? 0 : r;
+}
+
+/* Функция для динамической загрузки содержания */
+function LoadNewContent(id,file){
+	$("#"+id+" .customScrollBox .content").load(file,function(){
+		mCustomScrollbars();
+	});
+}
+</script>
+<script src="js/jquery.mCustomScrollbar.js"></script>
+</body>
+</html>

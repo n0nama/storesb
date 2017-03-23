@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/adds/styles.css' %}" type="text/css" media="all">
+
+
+</head>
+<body>
+	<div class="info-wrapper {% if theme_id == 0 %}green{% else %}orange{% endif %}">
+		<a href="/" class="info-logo"></a>
+		<div class="tabs tabs-info">
+			<div>
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+	</div>
+	<footer class="footer-line">
+		<h3>Присоединяйтесь к нам</h3>
+		<ul id="social">
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+		</ul>
+		<div id="copyright">Sell-n-buy. all rights reserved. все права защищены</div>
+	</footer>
+</body>
+</html>

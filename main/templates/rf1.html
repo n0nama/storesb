@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/Mstyle.css" type="text/css" media="all">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--[if IE]>
+	<link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	<script type="text/javascript" src="js/html5.js"></script>
+<![endif]-->
+<script type="text/javascript">
+	$(document).ready(function() {
+	var i = 1;
+	$('#display-pass').click(function(){
+	if(i==1){
+		$('#pass').attr('type', 'text');
+		i = 2;
+	} else {
+		$('#pass').attr('type', 'password');
+		i = 1;
+	}	
+	});
+		
+	
+	}); //Конец ready
+</script>
+</head>
+<body style="background:#636363 !important;">
+	<div id="wrapper" class="green">
+		<div id="form-box">
+			<a href="#" class="new-reg">Зарегистрируйтесь</a>
+			<span>или</span>
+			<p>У вас уже есть аккаунт?</p>
+			<form id="reg-form">
+				<input type="text" placeholder="USER_NAME" class="inpt">
+				<input type="password" placeholder="PASSWORD" class="inpt" id="pass">
+				<div id="display-pass" >показать пароль</div>
+				<input type="submit" value="Войти" class="btn-sub">
+			</form>
+			<a href="#" id="recovery-pass">Забыли аккаунт или пароль?</a>
+			<div id="social-title">или войдите через</div>
+			<ul id="social">
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+			</ul>
+			<div id="line"></div>
+			<div id="rev1">Более тысячи товаров</div>
+			<div id="rev2">Регистрация за <span>45</span> секунд!</div>
+		</div>
+	</div>
+</body>
+</html>

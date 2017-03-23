@@ -1,0 +1,64 @@
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Login' %}{% endblock %}
+
+{% block scripts %}
+	<link rel="stylesheet" href="{% static 'css/account/reset.css' %}" type="text/css" media="all">
+  <link rel="stylesheet" href="{% static 'css/account/styles.css' %}" type="text/css" media="all">
+  {% endblock %}
+
+{% block content %}
+	<h2 class="content__heading"><a href="{% url 'accounts:registration' %}">{% trans 'Sign up' %}</a></h2>
+	<span>{% trans 'or' %}</span>
+	<h3 class="content__subheading">{% trans 'Do you have an account?' %}</h3>
+  <form id="reg-form" action="{% url 'accounts:login' %}" method="post" class="content__form form">
+<!--<div style="width: 350px; margin-left: 25px">
+{#                        {% for error in form.non_field_errors %}#}
+{#                            {{ error|escape }}#}
+{#                        {% endfor %}#}
+                        {% if form.non_field_errors %}
+                            {% trans 'Incorrect username or password' %}
+                        {% endif %}
+</div>-->
+     {{ form.username|add_placeholder_to_field:'EMAIL OR PHONE'|add_class_to_formfield:'form__input' }}
+     {{ form.username.errors.as_text }}
+     {{ form.password|add_placeholder_to_field:'PASSWORD'|add_class_to_formfield:'form__input' }}
+     {{ form.password.errors.as_text }}
+     <input type="hidden" name="next" value="{{ next }}">
+		 <span class="form__togglePassword">{% trans 'show password' %}</span>
+     {% csrf_token %}
+		 <input type="submit" value="{% trans 'Sign in' %}" class="form__btn form__btn--submit">
+	</form>
+			<a href="{% url 'accounts:restore_password' %}" id="recovery-pass" class="form__btn form__btn--forgot">{% trans 'Did you forget your account or password?' %}</a>
+			<h3 class="content__subheading">{% trans 'Or you can sign in via' %}</h3>
+			<ul id="social" class="content__social social">
+				<li class="social__item">
+					<a href="{% url 'social:begin' 'vk-oauth2' %}" class="social__link">
+						<i class="fa fa-vk" aria-hidden="true"></i>
+					</a>
+				</li>
+				<li class="social__item">
+					<a href="{% url 'social:begin' 'facebook' %}" class="social__link">
+						<i class="fa fa-facebook" aria-hidden="true"></i>
+					</a>
+				</li>
+				<li class="social__item">
+					<a href="{% url 'social:begin' 'pinterest' %}" class="social__link">
+						<i class="fa fa-pinterest" aria-hidden="true"></i>
+					</a>
+				</li>
+			</ul>
+			<div class="content__links links">
+        <a href="#" class="links__item links__item--left">{% trans 'More than a 1000 items' %}</a>
+        <a href="#" class="links__item links__item--right">
+					{% blocktrans %}
+            Register in <span>45</span> seconds!
+          {% endblocktrans %}
+				</a>
+      </div>
+		</div>
+	</div>
+</body>
+{% endblock %}

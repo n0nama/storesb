@@ -1,0 +1,91 @@
+{% load i18n %}
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="static/css/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/basis/main.css">
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="static/js/semantic.min.js"></script>
+<script src="static/js/basis/main.js"></script>
+
+{% block scripts %}{% endblock %}
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <div id="up"><i class="angle up icon"></i></div>
+    <div id="content" class="ui grid container">
+        <a href="#" id="vitrina-icon-bottom">
+	        <img src="static/images/account/vitrina-icon-bottom-n.png">
+            <div class="ui red circular label">22</div>
+        </a>
+        <a href="#" id="cart-icon-bottom">
+	       <img src="static/images/account/cart-icon-bottom-n.png">
+	       <div class="ui red circular label">2</div>
+        </a>
+        <div class="sixteen wide center aligned column" id="topbar">
+            <table>
+                <tr class="olive">
+                    <td><a id="search_button" href="javascript:;" class="icon-search"></a></td>
+                    <td class="hideon"><a href="#" class="icon-bf"></a></td>
+                    <td class="hideon">
+                        <a href="#" class="icon-message"></a>
+                        <div class="ui red circular label">1</div>
+                    </td>
+                    <td class="hideon">
+                        <a href="#" class="icon-wishlist"></a>  
+                    </td>
+                    <td class="hideon">
+                        <a href="profile/profile.html" class="icon-main"></a>
+                    </td>
+                    <td class="hideon">
+                        <a href="#" class="icon-users"></a>
+                        <div class="ui red circular label">2</div>
+                    </td>
+                    <td class="hideon"><a href="#" class="icon-statistic"></a></td>
+                    <td class="hideon"><a href="settings/settings.html" class="icon-settings"></a></td>
+                    <td class="hideon"><a href="#" class="icon-globe"></a></td>
+                    <td id="search_input" class="hiden" colspan="8">
+                        <form action="/goods/search/" method="get">
+                            <input autocomplete="off" class="search olive" id="id_query" name="query" placeholder="SEARCH" type="text">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% block content %}{% endblock %}
+        <div id="footer" class="sixteen wide center aligned column">
+            ПРИСОЕДИНЯЙТЕСЬ К НАМ<br></br>
+            <button class="ui circular grey icon button">
+                <i class="vk icon"></i>
+            </button>
+            <button class="ui circular grey icon button">
+                <i class="facebook f icon"></i>
+            </button>
+            <button class="ui circular grey icon button">
+                <i class="odnoklassniki icon"></i>
+            </button>
+            <button class="ui circular grey icon button">
+                <i class="google plus icon"></i>
+            </button>
+            <button class="ui circular grey icon button">
+                <i class="twitter icon"></i>
+            </button>
+            <button class="ui circular grey icon button">
+                <i class="pinterest icon"></i>
+            </button>
+            <br></br>
+            SELL-N-BUY. ALL RIGHTS RESERVED. ВСЕ ПРАВА ЗАЩИЩЕНЫ.<br></br>
+            2016
+        </div>
+</body>
+</html>

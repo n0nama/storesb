@@ -1,0 +1,106 @@
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Registration' %}{% endblock%}
+
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/registration/reset.css' %}" type="text/css" media="all">
+  	<link rel="stylesheet" href="{% static 'css/registration/styles.css' %}" type="text/css" media="all">
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/index/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/index/html5.js' %}"></script>
+    <![endif]-->
+{% endblock %}
+{% block content %}
+<h2 class="content__heading content__heading--center">{% trans 'Sign up via e-mail' %}</h2>
+<form action="." method="post">
+{% csrf_token %}
+<div class="content__form form">
+    <div class="form__holder">
+        {{ form.email|add_class_to_formfield:"form__input" }}
+        <!--<span class="form__input--btn form__btn--sendEmail"></span>-->
+        {{ form.email.errors.as_text }}
+        {% if email_form_text %}
+            {{ email_form_text }}
+        {% endif %}
+    </div>
+		<p class="form__desc form__desc--email">{% for message in messages %}
+    	{{ message }}
+    {% endfor %}</p>
+    
+</div>
+<h2 class="content__heading">{% trans 'Sign up with your phone' %}</h2>
+<div class="form__holder">
+		{{ form.phone|add_class_to_formfield:"form__input" }}
+</div>
+<div class="form__holder">
+		{{ form.confirm_code|add_class_to_formfield:"form__input" }}
+</div>
+<p class="form__desc form__desc--tel"></p>
+<div class="form__confirmation">
+		{{ form.accept|add_class_to_formfield:"form__checkbox" }}
+    <label for="id_accept"></label>
+    <span class="form__desc">{{ form.accept.label }}</span>
+</div>
+	{{ form.accept.errors.as_text }}
+<input type="submit" class="form__btn form__btn--submit" value="{% trans 'Create account' %}">
+</form>
+{% endblock %}
+
+    <body style="background:#636363 !important;">
+	    <div id="wrapper" class="green">
+		    <div id="form-box" class="rf2">
+			    <div id="reg-title">{% trans 'Sign up via e-mail' %}</div>
+                <div style="width: 350px; margin-left: 25px">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+			    <form action="." method="post">
+                    {% csrf_token %}
+                    {{ form.email|add_class_to_formfield:"mail" }}
+                    <p id="input-link"></p>
+				    <div class="clear"></div>
+				    <div id="introtext">
+                        {{ form.email.errors.as_text }}
+                        {% if email_form_text %}
+                            {{ email_form_text }}
+                        {% endif %}
+                    </div>
+				    <div id="reg-title">{% trans 'Sign up with your phone' %}</div>
+                    {{ form.phone|add_class_to_formfield:"mail" }}
+				    <p id="input-link"></p>
+				    <div class="clear"></div>
+                    {{ form.confirm_code|add_class_to_formfield:"mail invisible" }}
+				    <p id="button-code"></p>
+				    <div class="clear"></div>
+				    <div id="introtext">
+                        {{ form.phone.errors.as_text }}
+                        {% if phone_form_text %}
+                            {{ phone_form_text }}
+                        {% endif %}
+                        {% if timer_active %}
+                            <span class="counter-text">
+                                {% trans 'You can request code after: ' %}
+                            </span>
+                            <span class="counter" id="50"></span>
+                        {% endif %}
+                    </div>
+				    <div id="check-box">
+					    <label>
+                            {{ form.accept }}
+                            <span></span>
+                        </label>
+					    <a href="#" id="introtext">
+                            {{ form.accept.label }}
+                            {{ form.accept.errors.as_text }}
+                        </a>
+				    </div>
+				    <input type="submit" class="reg-button" value="{% trans 'Create account' %}" style="background: #b1fe00;" {% if timer_active %}disabled{% endif %}>
+			    </form>
+		    </div>
+	    </div>
+    </body>

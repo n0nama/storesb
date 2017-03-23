@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{% block title %}{% endblock %}</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="{% static 'js/account/jquery.min.js' %}"></script>
+  <script src="{% static 'js/account/app.js' %}"></script>
+  
+  {% block scripts %}
+  {% endblock %}
+</head>
+  
+  <!--{% if theme_id == 0 %}green{% else %}orange{% endif %}-->
+<body class="green">
+<div id="wrapper">
+    <header class="header">
+
+    </header>
+    <main class="main">
+      <div class="main__content main__content--wrapper">
+        <div class="content">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+
+    </footer>
+  </div>
+</body>
+</html>

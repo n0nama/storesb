@@ -1,0 +1,235 @@
+{% extends 'registration/base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load main_tags %}
+{% block title %}{% trans 'Edit your account' %}{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/account/Mstyle.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/account/jquery.min.js' %}"></script>
+{#    <script type="text/javascript" src="{% static 'js/calc.js' %}"></script>#}
+    <!--[if IE]>
+	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/acccounts_styles.css' %}">
+    
+{% endblock %}
+{% block content %}
+    <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+                if($(this).scrollTop() != 0) {
+                    $('#up').fadeIn();
+                } else {
+                    $('#up').fadeOut();
+                }
+            });
+            $('#up').click(function() {
+                $('body,html').animate({scrollTop:0},800);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        var i = 1;
+	        $('.pass').click(function(){
+	            if(i==1){
+		            $('#id_new_password').attr('type', 'text');
+		            i = 2;
+	            } else {
+		            $('#id_new_password').attr('type', 'password');
+		            i = 1;
+                }
+            });
+            $('.editadressbutton').click(function(){
+                $('.adressinput').focus();
+                $('.helpadress').show();
+            });
+            $('.deleteacc').click(function() {
+                if (confirm("Вы точно желаете удалить свою страницу?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            $(document).find("input#id_org_form_0:checked, input#id_org_form_1:checked, input#id_sex_0:checked, input#id_sex_1:checked").addClass('bounce');
+    		$("#id_org_form_0, #id_org_form_1, #id_sex_0, #id_sex_1").click(function() {
+                $(this).prop('checked', false);
+                $(this).toggleClass('bounce');
+                if( $(this).hasClass('bounce') ) {
+                    $(this).prop('checked', true);
+                    $(document).find("input:not(:checked)[type='radio']").removeClass('bounce');
+                }
+            });
+        }); //Конец ready
+    </script>
+<div id="wrapper" class="green">
+    <div id="up"></div>
+    
+	<header class="black">
+		<ul>
+			<li><div></div></li>
+			<li>
+                <a href="{% url 'accounts:show_subscriptions' %}"></a>
+                {{ request.user|show_count_subscriptions|safe }}
+            </li>
+			<li>
+                <a href="#"></a>
+                <span>258</span>
+            </li>
+			<li>
+                <a href="{% url 'chat:show_thread_list' %}"></a>
+                {{ request.user|show_unread_message_count|safe }}
+            </li>
+			<li>
+                <a href="{% url 'goods:show_wishlist' %}"></a>
+                {{ request.user|show_count_goods_in_wishlist|safe }}
+            </li>
+			<li>
+                <a href="{{ request.user.profile.get_absolute_url }}"></a>
+            </li>
+			<li>
+                <a href="{% url 'main:calculator' %}"></a>
+            </li>
+			<li>
+                <a href="{% url 'accounts:user_search' %}"></a>
+            </li>
+			<li>
+                <a href="#"></a>
+                <span>258</span>
+            </li>
+			<li><a href="{% url 'accounts:profile' %}"></a></li>
+			<li>
+                <a href="{% url 'accounts:logout' %}">
+                    <div></div>
+                </a>
+            </li>
+		</ul>
+		<div class="clear"></div>
+	</header>
+	<h3 class="acc-title">{% trans 'Account settings' %}</h3>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+    <div>
+        <h2 class="acc-title">{% trans 'Welcome' %} {{ request.user.username }}!</h2>
+    </div>
+    <form action="." method="post">
+        {% csrf_token %}
+	    <div id="acc-block">
+		    <h4>{% trans 'Profile' %}</h4>
+		    <div class="acc-block-left">
+			    <p>{% trans 'Username' %}</p>
+			    <p>E-mail</p>
+			    <p>{% trans 'Phone' %}</p>
+			    <p>{% trans 'Additional phone' %}</p>
+			    <p>Skype</p>
+			    <p>Instagram</p>
+			    <p>{% trans 'Web-site' %}</p>
+			    <p>{% trans 'Country' %}</p>
+                <p>{% trans 'City' %}</p>
+			    <p>{% trans 'You are?' %}</p>
+			    <p>{% trans 'Sex' %}</p>
+		    </div>
+		    <div class="acc-block-right">
+                {{ user_edit_form.username }}{{ user_edit_form.username.errors.as_text }}<br>
+                {{ user_edit_form.email }}{{ user_edit_form.email.errors.as_text }}<br>
+                {{ profile_edit_form.phone }}{{ profile_edit_form.phone.errors.as_text }}<br>
+                {{ profile_edit_form.additional_phone }}{{ profile_edit_form.additional_phone.errors.as_text }}<br>
+                {{ profile_edit_form.skype }}{{ profile_edit_form.skype.errors.as_text }}<br>
+                {{ profile_edit_form.instagram }}{{ profile_edit_form.instagram.errors.as_text }}<br>
+                {{ profile_edit_form.site }}{{ profile_edit_form.site.errors.as_text }}<br>
+                <i class="adress"></i>
+                {{ profile_edit_form.country }}<br>
+                <i class="adress"></i>{{ profile_edit_form.city }}{{ profile_edit_form.city.errors.as_text }}<br>
+                {% for radio in profile_edit_form.org_form %}
+                    {{ radio.tag }}
+                    <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                {% endfor %}
+                {% for radio in profile_edit_form.sex %}
+                    {{ radio.tag }}
+                    <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                {% endfor %}
+		    </div>
+		    <div class="clear"></div>
+	    </div>
+	    <div id="acc-block">
+		    <h4>{% trans 'Information' %}</h4>
+		    <div class="acc-block-left">
+			    <p>{% trans 'About' %}</p>
+		    </div>
+		    <div class="acc-block-right">
+                {{ profile_edit_form.description }}
+                {{ profile_edit_form.description.errors.as_text }}
+		    </div>
+		    <div class="clear"></div>
+	    </div>
+        <!-- Social networks block -->
+    	<div id="acc-block">
+		    <h4>{% trans 'Automaticly publish in' %}</h4>
+		    <div class="acc-block-left">
+                {% for network in profile_edit_form.auto_post_to_networks %}
+                    {{ network.tag }}
+                    <label for="{{ network.id_for_label }}" class="interface">{{ network.choice_label }}</label>
+                {% endfor %}
+		    </div>
+		    <div class="clear"></div>
+	    </div>
+        <!-- End social networks block -->
+	    <div id="acc-block">
+		    <h4>{% trans 'Your page addree' %}</h4>
+		    <div class="acc-block-left">
+			    <p>{% trans 'Page address' %}</p>
+		    </div>
+		    <div class="acc-block-right">
+			    <div class="adressedit">
+				    <div class="adresstext">STORESB.COM/</div>
+                    {{ profile_edit_form.slug|add_class_to_formfield:"adressinput" }}
+                    {{ profile_edit_form.slug.errors.as_text }}
+				    <div class="helpadress">
+                        {% blocktrans %}
+                            You can change the short address of your page to a convenient and memorable. To do this, enter the page name consisting of letters, numbers or symbols "_".
+                        {% endblocktrans %}
+                    </div>
+			    </div>
+            </div>
+		    <div class="clear"></div>
+		    <h5 class="editadressbutton">{% trans 'Change address' %}</h5>
+	    </div>
+	    <div id="acc-block">
+		    <h4>Аккаунт</h4>
+		    <input type="submit" value="{% trans 'Edit' %}" name="edit">
+		    <h5 class="deleteacc">{% trans 'Delete account' %}</h5>
+	    </div>
+	</form>
+    <form action="." method="post">
+        <div id="acc-block">
+            <h4>{% trans 'Change password' %}</h4>
+            <div class="acc-block-left">
+                <p>{% trans 'Current password' %}</p>
+                <p>{% trans 'New password' %}</p>
+                <p>{% trans 'Confirm password' %}</p>
+            </div>
+            <div class="acc-block-right">
+                {{ password_form.old_password }}{{ password_form.old_password.errors.as_text }}
+                <br>
+                <i class="pass"></i>{{ password_form.new_password1 }}{{ password_form.new_password1.errors.as_text }}
+                <br>
+                {{ password_form.new_password2 }}{{ password_form.new_password2.errors.as_text }}
+                <br>
+                {% csrf_token %}
+            </div>
+            <input type="submit" value="OK" name="password">
+		    <div class="clear"></div>
+	    </div>
+    </form>
+    <div style="text-align: center">
+        <a href="{% url 'accounts:restore_password' %}" class="recovery-pass">{% trans 'Did you forget your account or password?' %}</a>
+    </div>
+</div>
+<footer>
+    {% include 'social_links.html' %}
+</footer>
+{% endblock %}

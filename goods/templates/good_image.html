@@ -1,0 +1,9 @@
+{% load staticfiles %}
+{% load thumbnail %}
+{% if good.get_first_image %}
+    {% thumbnail good.get_first_image.image thumb_size as im %}
+        <img src="{{ im.url }}" alt="{{ good.title }}" width="{{ width }}px" height="{{ height }}px" {% if css_class %}class="{{ css_class }}"{% endif %}>
+    {% endthumbnail %}
+{% else %}
+    <img src="{% static 'images/no-good-image.png' %}" width="{{ width }}px" height="{{ height }}px" alt="{{ good.title }}" {% if css_class %}class="{{ css_class }}"{% endif %}>
+{% endif %}
