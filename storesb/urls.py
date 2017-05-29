@@ -24,6 +24,10 @@ from storesb.settings import MEDIA_ROOT, MEDIA_URL
 from main.views import index_view
 from accounts.views import user_page
 
+from django.conf import settings
+from django.contrib.staticfiles.views import serve as serve_static
+from django.views.decorators.cache import never_cache
+
 
 urlpatterns = [
     url(r'^$', index_view, name='index'),
@@ -40,4 +44,6 @@ urlpatterns = [
     url(r'social-auth/', include('social.apps.django_app.urls', namespace='social')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^(?P<user_slug>\w+)/$', user_page, name='user_page'),
+
+    url(r'^static/(?P<path>.*)$', never_cache(serve_static))
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

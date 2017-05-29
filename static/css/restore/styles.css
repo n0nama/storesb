@@ -19,6 +19,14 @@ a {
   color: #000;
 }
 
+#form_errors{
+
+  font-size: 1em;
+  margin-bottom: 11px;
+  padding-top:4px;
+  height:35px;
+}
+
 #wrapper { width: 100%; }
 
 .orange {  }
@@ -61,9 +69,10 @@ a {
   font-size: 1.4em;
   margin-bottom: 12px;
   text-align: center;
+  margin-top: 30px;
 }
 
-.content__heading--center { text-align: center; }
+.content__heading--center { text-align: center; margin-top: 55px;}
 
 .content__subheading {
   font-weight: bold;
@@ -144,7 +153,7 @@ a {
   text-transform: uppercase;
   padding: 5px 0;
   font-size: 1.8em;
-  margin-top: 35px;
+  margin-top: 10px;
   color: #dfdfdf;
 }
 

@@ -1,3 +1,4 @@
+{% extends 'basis.html' %}
 {% load staticfiles %}
 {% load i18n %}
 {% load main_tags %}
@@ -5,211 +6,448 @@
 {% load accounts_tags %}
 {% load goods_tags %}
 {% load cart_tags %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{{ profile.user.username }}</title>
-    <link rel="stylesheet" href="{% static 'js/vendor/rateit/rateit.css' %}" type="text/css" media="all">
-    <link rel="stylesheet" href="{% static 'css/user_page/filter.css' %}" type="text/css" media="all">
-    <link rel="stylesheet" href="{% static 'css/user_page/main.css' %}" type="text/css" media="all">
-    <link rel="stylesheet" href="{% static 'css/user_page/new-css-prefixed.css' %}" type="text/css" media="all">
-    <link rel="stylesheet" href="{% static 'css/acccounts_styles.css' %}" type="text/css" media="all">
 
-    <script type="text/javascript" src="{% static 'js/user_page/jquery.min.js' %}"></script>
-	  <!--
-	  <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css"/>
-		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+{% block title %}{{ request.user.username }}{% endblock %}
 
-      <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick-theme.css"/>
-	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile/profile.css' %}">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static 'js/profile/cropit.js' %}"></script>
+<script src="{% static 'js/profile/blocksit.js' %}"></script>
+<script src="{% static 'js/profile/jquery.raty-fa.js' %}"></script>
+<script src="{% static 'js/profile/profile.js' %}"></script>
+{% endblock %}
 
-
-	   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-	 <script src="js/jquery.min.js"></script>
-	 -->
-	 <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
-
-    <!--[if IE]>
-	    <link rel="stylesheet" href="{% static 'css/account/styleIE.css' %}" type="text/css" media="all">
-	    <script type="text/javascript" src="{% static 'js/user_page/html5.js' %}"></script>
-    <![endif]-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <script type="text/javascript">
-        $(function() {
-            $(window).scroll(function() {
-                if($(this).scrollTop() != 0) {
-                    $('#up').fadeIn();
-                    $(".visibility-eye").css("top","75px");
-                } else {
-                    $('#up').fadeOut();
-                    $(".visibility-eye").css("top","225px");
-                }
-            });
-            $('#up').click(function() {
-                $('body,html').animate({scrollTop:0},800);
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $(window).load(function(){
-            $('.category-container-tab2').masonry({
-                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-	            itemSelector: '#category',
-                // указываем класс элемента являющегося блоком в нашей сетке
-                singleMode: true,
-                // true - если у вас все блоки одинаковой ширины
-	            isResizable: true,
-                // перестраивает блоки при изменении размеров окна
-	            isAnimated: true,
-                // анимируем перестроение блоков
-                animationOptions: {
-                    queue: true,
-                    duration: 500
-                }
-                // опции анимации - очередь и продолжительность анимации
-	        });
-
-	    });
-
-        $(document).ready(function(){
-            /*
-                var inBlock = $('#category-container').html();
-                if(inBlock){
-                    $('#category-container').append('<div id="non-content">У ВАС ПОКА НЕТ ТОВАРОВ</div>');
-                }
-            $('#wrapper-tabs a').click(function() {
-                    if ($(this).attr('class') != $('#wrapper-tabs').attr('class') ) {
-                        $('#wrapper-tabs').attr('class',$(this).attr('class'));
-                    }
-                });
-            */
-            $(' #wrapper-tabs .tab3').hide();
-            $('#wrapper-tabs .tab2').show();
-            $('#wrapper-tabs a').click(function() {
-                $('.category-container-tab2').masonry({
-                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-	                itemSelector: '#category',
-                    // указываем класс элемента являющегося блоком в нашей сетке
-                    singleMode: true,
-                    // true - если у вас все блоки одинаковой ширины
-	                isResizable: true,
-                    // перестраивает блоки при изменении размеров окна
-	                isAnimated: true,
-                    // анимируем перестроение блоков
-                    animationOptions: {
-                        queue: true,
-                        duration: 500
-                    }
-                    // опции анимации - очередь и продолжительность анимации
-	            });
-	        });
-
-            $('#wrapper-tabs a').click(function() {
-                $('.category-container-tab1').masonry({
-                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-	                itemSelector: '#category',
-                    // указываем класс элемента являющегося блоком в нашей сетке
-                    singleMode: true,
-                    // true - если у вас все блоки одинаковой ширины
-                    isResizable: true,
-                    // перестраивает блоки при изменении размеров окна
-                    isAnimated: true,
-                    // анимируем перестроение блоков
-                    animationOptions: {
-                        queue: true,
-                        duration: 500
-                    }
-                    // опции анимации - очередь и продолжительность анимации
-	            });
-	        });
-
-            $('#wrapper-tabs a').click(function() {
-                $('.category-container-tab3').masonry({
-                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-	                itemSelector: '#category',
-                    // указываем класс элемента являющегося блоком в нашей сетке
-                    singleMode: true,
-                    // true - если у вас все блоки одинаковой ширины
-	                isResizable: true,
-                    // перестраивает блоки при изменении размеров окна
-	                isAnimated: true,
-                    // анимируем перестроение блоков
-                    animationOptions: {
-                        queue: true,
-                        duration: 500
-                    }
-                    // опции анимации - очередь и продолжительность анимации
-	            });
-	        });
-            // Get CSRF cookie protection
-            var csrftoken = $.cookie('csrftoken');
-            function csrfSafeMethod (method) {
-                // These HTTP methods do not require CSRF protection
-                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-            }
-            $.ajaxSetup({
-                beforeSend: function (xhr, settings) {
-                    if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                        // Set X-CSRFToken HTTP Header
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    }
-                }
-            });
-
-            function check_login_url(xhr) {
-                var login_url = '{% url "accounts:login" %}' + "?next={% url 'user_page' profile.slug %}";
-                if (xhr.responseText.indexOf('login') != -1 ) {
-                    // Check if response doesn't contain redirect to login. If it contains - redirect to login window
-                    window.location = login_url;
-                }
-            }
-
-            // Subscribe action scripts
-            {% trans 'Unfollow' as unfollow %}
-            {% trans 'Follow' as follow %}
-
-            if ($('#followLink').data('action') == 'remove') {
-                $('#followLink').text('{{ unfollow }}');
-                $('#followLink').toggleClass('alternate_color');
-            } else {
-                $('#followLink').text('{{ follow }}');
-                $('#followLink').toggleClass('alternate_color');
-            }
-            $('#followLink').click(function(e){
-                e.preventDefault();
-                $.post('{% url "accounts:add_subscriber" %}',
-                    {
-                        pk: $(this).data('id'),
-                        action: $(this).data('action')
-                    },
-                    function (data, status, xhr) {
-                        check_login_url(xhr);
-                        if (data['status'] == 'ok') {
-                            var previous_action = $('#followLink').data('action');
-                            var num = parseInt($('#subs_number').text());
-                            var count_previous = parseInt($('#followers').text());
-                            $('#followLink').data('action', previous_action == 'add' ? 'remove' : 'add');
-                            if (previous_action == 'add') {
-                                $('#followLink').text('{{ unfollow }}');
-                                $('#followLink').toggleClass('alternate_color');
-                                $('#followers').text(count_previous + 1);
-                                $('#subs_number').text(num + 1);
-                            } else {
-                                $('#followLink').text('{{ follow }}');
-                                $('#followLink').toggleClass('alternate_color');
-                                $('#followers').text(count_previous - 1);
-                                $('#subs_number').text(num - 1);
-                            }
-                        }
-                    }
-                );
-            });
-        });
-    </script>
-
+{% block content %}
+		<div class="sixteen wide column padless">
+        <div class="imageCover" {% if request.user.pk == profile.user.pk %}id="imageCover"{% endif %}>
+            {% if profile.cover %}
+            <img src="{{ profile.cover.url }}" width="960px" height="222px">
+            {% else %}
+            <h3 class="image-holder-title">{{ profile.user.username }}</h3>
+            {% endif %}
+        </div>
+        <div class="retailer-logo-wrapper">
+            <div class="avatarImageDiv" {% if request.user.pk == profile.user.pk %}id="avatarImageDiv"{% endif %}>
+							{% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" width="90px" height="90px" class="circular">
+							{% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="sixteen wide center aligned column padless">
+        <h3 id="username">{{ profile.user.username }}</h3>
+    </div>
+    <div class="sixteen wide center aligned column padless">
+        <h4 id="online_status">{{ profile.get_status_display }}</h4>
+    </div>
+		{% if profile.description %}
+    <div class="sixteen wide center aligned column">
+			<p id="description">{{ profile.description }}</p>
+    </div>
+		{% endif %}
+    <div class="sixteen wide center aligned column">
+        <h4>{% trans 'Contacts' %}</h4>
+    </div>
+    <div id="retailer-location" class="sixteen wide center aligned column padless"></div>
+    <div class="sixteen wide center aligned column padless">
+        <div class="ui segment grid">
+            <div class="five wide center aligned column">
+                <h4>{% trans 'Address' %}</h4>
+                <div class="copy"> {{ profile.get_country_display }}, {{ profile.city }}</div>
+            </div>
+            <div class="six wide center aligned column">
+                <h4>Skype</h4>
+                <div class="copy">{{ profile.skype }}</div>
+            </div>
+            <div class="five wide center aligned column">
+                <h4>{% trans 'Is an' %}</h4>
+                <div class="copy">{{ profile.get_org_form_display }}</div>
+            </div>
+            
+            <div class="five wide center aligned column">
+                <h4>{% trans 'Contact phone' %}</h4>
+                <div class="copy">{{ profile.phone }}</div>
+            </div>
+            <div class="six wide center aligned column">
+                <h4>E-MAIL</h4>
+                <div class="copy">{{ profile.user.email }}</div>
+            </div>
+            <div class="five wide center aligned column">
+                <h4>{% trans 'sex' %}</h4>
+                <div class="copy">{{ profile.get_sex_display }}</div>
+            </div>
+            
+            <div class="five wide center aligned column">
+                <h4>{% trans 'Additional phone' %}</h4>
+                <div class="copy">{{ profile.additional_phone }}</div>
+            </div>
+            <div class="six wide center aligned column">
+                <h4>Web-site</h4>
+                <div class="copy">{{ profile.site }}</div>
+            </div>
+            <div class="five wide center aligned column">
+                <h4>Instagram</h4>
+                <div class="copy">{{ profile.instagram }}</div>
+            </div>
+        </div>
+    </div>
+    <div id="statistics" class="ui grid">
+        <div class="sixteen wide center aligned column padless">
+        <table class="ui basic fixed table">
+            <tbody>
+            <tr>
+                <td class="center aligned">
+                    <div class="ui statistics">
+                        <div class="statistic">
+                            <div class="value">
+                                <div class="primary-ranking" id="avgMark">{{ average_mark }}</div>
+                                <div id="user_current_rate" data-rating="{{ average_mark|safe }}"></div>
+                            </div>
+                            
+                            <div class="label">
+                                {% trans 'total marks' %} {{ profile.get_total_about_marks }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td id="rate_scale" class="collapsing right aligned">
+										<div class="rating" data-rating="5"></div>
+                    <div class="rating" data-rating="4"></div>
+                    <div class="rating" data-rating="3"></div>
+                    <div class="rating" data-rating="2"></div>
+                    <div class="rating" data-rating="1"></div>
+                    <!--<div class="ui small rating disabled" data-max-rating="5" data-rating="5"></div><br>
+                    <div class="ui small rating disabled" data-max-rating="5" data-rating="4"></div><br>
+                    <div class="ui small rating disabled" data-max-rating="5" data-rating="3"></div><br>
+                    <div class="ui small rating disabled" data-max-rating="5" data-rating="2"></div><br>
+                    <div class="ui small rating disabled" data-max-rating="5" data-rating="1"></div>
+                    <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-first-img"><br>
+                    <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img"><br>
+                    <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img"><br>
+                    <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img"><br>
+                    <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img">-->
+                </td>
+                <td class="left aligned">
+                    <div id="gChart"></div>
+                </td>
+                <td class="center aligned">
+                    <table id="user_stat" class="ui fixed celled table">
+                        <tbody>
+                            <tr>
+                                <td class="center aligned">
+                                    <p class="counts">{{ profile.get_lots_count }}</p>
+                                    <p>lot{{ profile.get_lots_count|pluralize }}</p>
+                                </td>
+                                <td class="center aligned">
+                                    <p class="counts">{{ profile.get_subscribers_count }}</p>
+                                    <p>followers</p>
+                                </td>
+                                <td class="center aligned">
+                                    <p class="counts">{{ profile.get_subscription_count }}</p>
+                                    <p>following</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+										{% if request.user.pk != profile.user.pk %}
+										<div id="user_menu" class="ui compact icon menu">
+                        <a class="item">
+                            <i class="mail outline icon"></i>
+                        </a>
+                        <a class="item">
+                            <i class="empty star icon"></i>
+                        </a>
+                        <a id="complaint_send" class="item">
+                            <i class="frown icon"></i>
+                        </a>
+                    </div>
+										{% endif %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+						{% if request.user.pk != profile.user.pk %}
+            <button class="ui small basic button olive fixed_button" id="followLink" data-id="{{ profile.user.pk }}" data-action="{% if profile.user in request.user.subscribers.users.all  %}remove{% else %}add{% endif %}">
+                FOLLOW
+            </button>
+						{% endif %}
+        </div>
+    </div>
+		<div id="reviews" class="ui grid">
+			<div class="sixteen wide left aligned column" id="rating_section">
+				<div class="ui divider"></div>
+        	<div class="ui comments">
+            <!--________________________________________________________________REVIEWS SECTION____________________________________________________-->
+              	{% for review in about_reviews %}
+								<div class="comment">
+                    <div class="avatar">
+												{% if review.author.profile.avatar %}
+                        <img src="{{ review.author.profile.avatar.url }}"></img>
+												{% else %}
+												<img src="https://www.bicyclenetwork.com.au/media/vanilla_content/images/Around%20the%20Bay/2017/blank_male_avatar-2.jpeg"></img>
+												{% endif %}
+                    </div>
+                    <div class="content">
+                        <a href="{{ review.author.profile.get_absolute_url }}" class="author">
+                            {{ review.author.username }} <!--<div class="ui small rating disabled" data-max-rating="5" data-rating="{{ review.mark|floatformat:'0' }}"></div>-->
+                        </a>
+												<div class="rev_rating" data-rating="{{ review.mark|safe }}"></div>
+                        <div class="text">
+                            {{ review.text|linebreaksbr }}
+                        </div>
+                    </div>
+                </div>
+								{% empty %}
+									<h2>{% trans 'No reviews yet.' %}</h2>
+                {% endfor %} 
+            <!--____________________________________________________________END REVIEWS SECTION____________________________________________________-->
+						</div>
+        </div>
+				<div class="sixteen wide center aligned column padless">
+					{% if request.user.is_authenticated %}
+                {% if request.user != profile.user %}
+                    {% if request.user.pk in all_to_user_sold_orders %}{% endif %}
+											<button class="ui small basic button olive fixed_button" id="write_review_button">{% trans 'write review' %}</button>   
+                {% endif %}
+            {% endif %}
+				</div>
+				<div class="sixteen wide center aligned column padless">
+					<div class="ui divider"></div>
+				</div>
+		</div>
+		<div class="sixteen wide center aligned column">
+        <button id="revtoggle" class="ui basic olive button fixed_button">{% trans 'Reviews' %}</button>
+    </div>
+    <!--<div id="rev_pointer" class="sixteen wide center aligned column">
+				<h4 id="revtoggle" class="headline">{% trans 'Reviews' %}</h4>
+        <h6>PUSH REVIEWS TO OPEN</h6>
+    </div>-->
+    <div class="sixteen wide center aligned column">
+        <img id="lottoggle" src="../static/images/user_page/infinity-symbol.png">
+    </div>
+    <div id="wrapper-tabs" class="sixteen wide column">
+        <div class="ui segment">
+            <div class="sumssd"></div>
+            <div id="sort-min">
+                <table class="ui very basic fixed table">
+                    <tbody>
+                        <tr id="sortbys">
+                            <td class="center aligned copy">
+                                <i id="sort-price-up" class="angle up icon" data-sortby="priceUp"></i>
+                                <span>price</span>
+                                <i id="sort-price-down" class="angle down icon" data-sortby="priceDown"></i>
+                            </td>
+                            <td class="center aligned copy">
+                                {{ profile.get_lots_count }} lot{{ profile.get_lots_count|pluralize }}
+                            </td>
+                            <td class="center aligned copy">
+                                <i id="sort-data-up" class="angle up icon" data-sortby="dateUp"></i>
+                                <span>date</span>
+                                <i id="sort-data-down" class="angle down icon" data-sortby="dateDown"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="ui divider"></div>
+            </div>
+            <div id="user_lots">
+						<!--_______________________________________________________________USER'S LOTS___________________________________________________________-->
+							{% with goods=user_goods %}
+                    {% include "good_ajax.html" %}
+                {% endwith %}
+            <!--_______________________________________________________________END OF USER'S LOTS____________________________________________________-->
+            </div>
+        </div>
+    </div>
+    <div class="sixteen wide center aligned column">
+        <img src="../static/images/user_page/interesting-ribbon.png">
+        <h4 class="title">Intresting goods</h4>
+    </div>
+    <div class="sixteen wide column">
+        <div id="interesting-goods-section">
+            <div class="ui segment">
+                <div class="ui six cards">
+										<!--___________________________________________________________INTERESTING GOODS____________________________________________-->
+										{% for good in goods_with_max_likes %}
+                        <div class="ui card">
+			                	<a href="{{ good.get_absolute_url }}"></a>
+		                    <!--<div class="image">
+                                {% show_good_image good 100 93 'interesting-goods-img' %}
+                            </div>-->
+                            <a href="{{ good.get_absolute_url }}" class="image">
+                                <div class="img" style="background-image:url('/media/{{ good.get_first_image.image }}');"></div>
+                            </a>
+                            <div class="content">
+                                <div class="price_block">
+                                    <div class="header">{{ good.title }}</div>
+                                    <p class="interesting-goods-price">{{ good.get_good_price_by_deal }}</p>
+                                </div>
+                                <a href="{{ good.get_absolute_url }}" class="ui fluid small olive basic button">{% trans 'Buy' %}</a>
+                            </div>
+                            <div class="content bottom">
+                                {% if good.user.profile.avatar %}
+                                    <img class="ui avatar image left floated meta" src="/media/{{ good.user.profile.avatar }}">
+                                {% else %}
+																		<img class="ui avatar image left floated meta" src="https://cdn4.iconfinder.com/data/icons/user-avatar-flat-icons/512/User_Avatar-31-512.png">
+																{% endif %}
+																		<div class="overflow_check">
+                                    		<a class="user_link" href="{{ good.user.profile.get_absolute_url }}">{{ good.user.username }}</a>
+																		</div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        {% trans 'No goods found' %}
+                    {% endfor %}
+                    <!--_______________________________________________________END INTERESTING GOODS____________________________________________-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--_____________________________________________________________MODALS____________________________________________________________________-->
+    <div id="img-load-module" class="ui small modal">
+        <div class="header">Upload image</div>
+        <div class="content">
+            <div class="ui grid">
+                <div class="sixteen wide center aligned column">
+                    <img src="../static/images/user_page/upload-popup-img1.png"><br>
+                    <p class="copy">Take photo from the device</p>
+                </div>
+                <div id="bannerLoad" class="sixteen wide center aligned column">
+                    <img src="../static/images/user_page/upload-popup-img2.png">
+                    <p class="copy">Upload from the device</p>
+                </div>
+                <div id="avaLoad" class="sixteen wide center aligned column">
+                    <img src="../static/images/user_page/upload-popup-img2.png">
+                    <p class="copy">Upload from the device</p>
+                </div>
+                <!--<div class="seven wide center aligned column"></div>
+                <div class="two wide center aligned column">
+                    <a class="ui basic small grey fluid button">X</a>
+                </div>
+                <div class="seven wide center aligned column"></div>-->
+            </div>
+        </div>
+    </div>
+    <div id="upload-custom-banner-popup" class="ui small modal">
+        <div class="header">{% trans 'Upload image' %}</div>
+        <div class="content">
+            <div id="bannerLoadContainer">
+                <input id="bannerFile" type="file" class="cropit-image-input" />
+                <div id="loadFile" class="ui miny grey basic button">Select new image</div>
+                <div class="cropit-preview"></div>
+                <input type="range" class="cropit-image-zoom-input" />
+            </div>
+        </div>
+        <div class="action ui grid">
+            <div class="seven wide column"></div>
+            <div class="two wide center aligned column">
+                <button class="ui small olive fluid button" id="btnBannerLoad">OK</button>
+                <button class="ui small grey basic fluid button" id="clsBannerLoad">CANCEL</button>
+            </div>
+            <div class="seven wide column"></div>
+        </div>
+    </div>
+    <div id="upload-custom-logo-popup" class="ui small modal">
+        <div class="header">{% trans 'Upload image' %}</div>
+        <div class="content">
+            <div id="avatarLoadContainer">
+                <input id="avatarFile" type="file" class="cropit-image-input" />
+                <div id="loadAvFile" class="ui miny grey basic button">Select new image</div>
+                <div class="cropit-preview"></div>
+                <input type="range" class="cropit-image-zoom-input" />
+            </div>
+        </div>
+        <div class="action ui grid">
+            <div class="seven wide column"></div>
+            <div class="two wide center aligned column">
+                <button class="ui small olive fluid button" id="btnAvatarLoad">OK</button>
+                <button class="ui small grey basic fluid button" id="clsAvatarLoad">CANCEL</button>
+            </div>
+            <div class="seven wide column"></div>
+        </div>
+    </div>
+    <div id="complaint-popup" class="ui small modal">
+        <div class="header">{% trans 'Complain' %}</div>
+        <div class="content">
+            <div class="ui grid">
+                <div class="sixteen wide column center aligned padless" id="complaint_reason">
+                    <h3 class="headline">{% trans 'Reason' %}</h3>
+                    <div class="radiocust olive">
+                        <input type="radio" name="complaint-reason" id="reason1" value="{{ OWNER_IMPERSONATE }}">
+                        <label for="reason1">{% trans 'Owner profile is impersonating another' %}</label>
+                    </div>
+                    <div class="radiocust olive">
+                        <input type="radio" name="complaint-reason" id="reason2" value="{{ FRAUD }}">
+                        <label for="reason2">{% trans 'Fraud' %}</label>
+                    </div>
+                    <div class="radiocust olive">
+                        <input type="radio" name="complaint-reason" id="reason3" value="{{ SPAM }}">
+                        <label for="reason3">{% trans 'Spam' %}</label>
+                    </div>
+                    <div class="radiocust olive">
+                        <input type="radio" name="complaint-reason" id="reason4" value="{{ ADVERTISE }}">
+                        <label for="reason4">{% trans 'Advertising page clog up search' %}</label>
+                    </div>
+                    <div class="ui divider"></div>
+                </div>
+                <div class="sixteen wide column center aligned padless">
+                    <h3 class="headline">{% trans 'Comment' %}</h3>
+                    <textarea rows="7" id="textComplaint"></textarea>
+                    <div class="ui divider"></div>
+                </div>
+                <div class="sixteen wide column center aligned padless">
+                    {% if profile.user in request.user.my_blocklist.users.all %}
+                        <h3 class="headline" id="block-user" data-block="unblock">{% trans 'Unblock' %}</h3>
+                    {% else %}
+                        <h3 class="headline" id="block-user" data-block="block">{% trans 'Block' %}</h3>
+                    {% endif %}
+                    <div class="block-user-module" id="block-user-module">
+                        <div class="radiocust olive">
+                            <input type="radio" id="confirm-block-n" name="blockUser" value="0">
+                            <label for="confirm-block-n">{% trans 'No, cancel' %}</label>
+                        </div>
+                        <div class="radiocust olive">
+                            <input type="radio" id="confirm-block-y" name="blockUser" value="1">
+                            <label for="confirm-block-y">{% trans 'Yes, confirm' %}</label>
+                        </div>
+                    </div>
+                    <p class="subheadline">*{% trans 'I do not want to this account could send me messages' %}</p>
+                    <div class="ui divider"></div>
+                    <input id="user_id" type="hidden" value="{{ profile.user.pk }}">
+                </div>
+                <div id="complaint_submit" class="sixteen wide column center aligned padless">
+                    <a class="ui small olive button" id="okComplaint">OK</a>
+                    <br>
+                    <a id="closeComplaint" class="ui small grey basic button">X</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="reviews-popup-wrapper" class="ui modal">
+        <div class="header">{% trans 'Review' %}</div>
+        <div class="content">
+					<div class="ui grid">
+						<div class="sixteen wide column center aligned padless">
+            	<h3 class="headline">{% trans 'Your mark' %}</h3>
+            	<div class="primary-stars clearfix">
+								<input type="hidden" value="{{ profile.user.pk }}" id="profid"/>
+								<div id="rateReview"></div>
+                <div class="rateit bigstars" data-rateit-starwidth="23" data-rateit-starheight="22" data-rateit-resetable="false"  data-rateit-ispreset="true" ></div>
+            	</div>
+							<div class="ui divider"></div>
+						</div>
+						<div class="sixteen wide column center aligned padless">
+            	<textarea rows="7" id="textReview"></textarea>
+							<div class="ui divider"></div>
+						</div>
+						<div class="sixteen wide column center aligned padless">
+            	<button class="ui small basic button olive fixed_button" id="okReview">OK</button><br><br>
+            	<button class="ui small grey basic button fixed_button" id="close_write_review">X</button>
+						</div>
+					</div>
+        </div>
+    </div>
     <!-- Google chart -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -228,7 +466,7 @@
             ]);
             // Set chart options: disable grid, start line, legend, annotation
             var options = {
-                width: 120,
+                width: 200,
                 height: 175,
                 chartArea: {width: '100%', height: '100%', left:0,top:0,},
                 annotations: {
@@ -265,529 +503,6 @@
             chart.draw(data, options);
         }
     </script>
-    {% include 'check_online.html' %}
-</head>
-<body>
-    <div id="wrapper" class="white">
-    <div id="up"></div>
-    {% include 'cart_showcase_block.html' %}
-	<header class="blackheader green">
-        {% if request.user.is_authenticated %}
-            {% include 'main_menu.html' %}
-        {% else %}
-            {% include 'sign_in.html' %}
-        {% endif %}
-		<div class="clear"></div>
-	</header>
-		<div class="search-box">
-			<img class="img-search" src="{% static 'images/user_page/search-green-icon_03.png' %}">
-            <form action="{% url 'goods:search' %}" method="get">
-                {{ searchform.query|add_class_to_formfield:"search" }}
-            </form>
-		</div>
-		<div class="clear"></div>
-	    <section class="retailer-main">
-            <div class="image-holder" id="imageCover">
-                {% if profile.cover %}
-                    <img src="{{ profile.cover.url }}" width="900px" height="222px">
-                {% else %}
-                    <h3 class="image-holder-title" style="margin-top: 84px !important;">{{ profile.user.username }}</h3>
-                {% endif %}
-            </div>
-            <div class="retailer-logo-wrapper">
-                <div class="inner" id="avatarImageDiv">
-                    {% if profile.avatar %}
-                        <img src="{{ profile.avatar.url }}" width="90px" height="90px" class="circular">
-                    {% endif %}
-                </div>
-            </div>
-            <h3 class="logo">{{ profile.user.username }}</h3>
-            <h3 class="online-status">{{ profile.get_status_display }}</h3>
-            <div class="retailer-description">
-                <h3 class="headline">{{ profile.user.username }}</h3>
-                {{ profile.description|linebreaks }}
-            </div>
-            <div class="contact-retailer-headline">
-                <h3 class="headline">{% trans 'Contacts' %}</h3>
-            </div>
-            <div id="retailer-location">
-
-            </div>
-            <div class="contact-retailer-info-wrapper clearfix">
-                <ul>
-                    <li class="item">
-                        <div class="label">{% trans 'Address' %}</div>
-                        <div class="copy geo"> {{ profile.get_country_display }}, {{ profile.city }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">Skype</div>
-                        <div class="copy">{{ profile.skype }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">{% trans 'Is an' %}</div>
-                        <div class="copy">{{ profile.get_org_form_display }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">{% trans 'Contact phone' %}</div>
-                        <div class="copy">{{ profile.phone }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">E-MAIL</div>
-                        <div class="copy">{{ profile.user.email }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">{% trans 'sex' %}</div>
-                        <div class="copy">{{ profile.get_sex_display }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">{% trans 'Additional phone' %}</div>
-                        <div class="copy">{{ profile.additional_phone }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">Web-site:</div>
-                        <div class="copy">{{ profile.site }}</div>
-                    </li>
-                    <li class="item">
-                        <div class="label">Instagram</div>
-                        <div class="copy">{{ profile.instagram }}</div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <div class="module-toggle">
-            <h3 class="headline">{% trans 'Reviews' %}</h3>
-        </div>
-        <section class="reviews-wrapper module">
-            <div class="clearfix">
-                <div class="primary-star-section">
-                    <div class="primary-ranking" id="avgMark">{{ average_mark }}</div>
-                    <div class="primary-stars">
-                        <div class="rateit bigstars" data-rateit-value="{{ average_mark }}" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-starwidth="23" data-rateit-starheight="22"></div>
-				    </div>
-                    <div class="primary-stars-subtext">{% trans 'total marks' %}
-                        <span id="total_marks_number">{{ profile.get_total_about_marks }}</span>
-                    </div>
-                </div>
-                <div class="secondary-star-section">
-                    <div class="star-div">
-                        <div class="markers-div">
-                            <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-first-img"><br>
-                            <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img"><br>
-                            <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img"><br>
-                            <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img"><br>
-                            <img src="{% static 'images/user_page/vertical-star.png' %}" class="marker-img">
-                        </div>
-                        <div class="chart-div">
-                            <div id="gChart"></div>
-                        </div>
-                    </div>
-			    </div>
-			    <div class="text-review-section" id="rating_section">
-                    {% for review in about_reviews %}
-				        <div class="item clearfix">
-					        <div class="logo-section">
-                                {% if review.author.profile.avatar %}
-                                    {% thumbnail review.author.profile.avatar "37x36" as im %}
-                                        <img src="{{ im.url }}">
-                                    {% endthumbnail %}
-                                {% endif %}
-                            </div>
-					        <div class="text-section">
-                                <div class="headline">
-                                    {{ review.author.username }}
-                                    <span class="stars">
-                                        <div class="rateit smallstars" data-rateit-value="{{ review.mark }}" data-rateit-ispreset="true" data-rateit-readonly="true" data-rateit-starwidth="12" data-rateit-starheight="12"></div>
-                                    </span>
-                                </div>
-                                <div class="copy">
-                                    {{ review.text|linebreaksbr }}
-                                </div>
-                            </div>
-                        </div>
-                    {% empty %}
-                        {% trans 'No reviews yet.' %}
-                    {% endfor %}
-                    {% if request.user.is_authenticated %}
-                        {% if request.user != profile.user %}
-                            {% if request.user.pk in all_to_user_sold_orders %}
-				                <a class="cta">{% trans 'write review' %}</a>
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
-			    </div>
-			    <div class="review-stats-section">
-				    <div class="top-menu clearfix">
-					    <div class="col-3">
-						    <img src="{% static 'images/user_page/envelope.png' %}">
-					    </div>
-					    <div class="col-3">
-						    <img src="{% static 'images/user_page/star.png' %}">
-					    </div>
-					    <div class="col-3 complaint">
-						    <img src="{% static 'images/user_page/unhappy-face.png' %}">
-					    </div>
-                    </div>
-				    <div class="bottom-menu clearfix">
-					    <div class="col-3">
-						    <p class="headline">{{ profile.get_lots_count }}</p>
-						    <p class="copy">lots</p>
-					    </div>
-					    <div class="col-3">
-						    <p class="headline" id="followers">{{ profile.get_subscribers_count }}</p>
-						    <p class="copy">followers</p>
-					    </div>
-					    <div class="col-3">
-						    <p class="headline">{{ profile.get_subscription_count }}</p>
-						    <p class="copy">following</p>
-					    </div>
-				    </div>
-                    {% if profile.user.pk != request.user.pk and request.user.is_authenticated%}
-				        <a href="#" class="results-block-item-header-cta-wrapper" id="followLink" data-id="{{ profile.user.pk }}" data-action="{% if profile.user in request.user.subscribers.users.all  %}remove{% else %}add{% endif %}">
-                            {% trans 'Follow' %}
-                        </a>
-                    {% endif %}
-			    </div>
-		    </div>
-        </section>
-	<div class="module-toggle infinity">
-		<img src="{% static 'images/user_page/infinity-symbol.png' %}">
-	</div>
-	<div id="wrapper-tabs" class="tab1 module">
-        <div class="sum">
-
-        </div>
-        <div class="cross-goods">
-            <img src="{% static 'images/user_page/cross-little-icon.png' %}">
-        </div>
-        <div class="visibility-eye active">
-            <img class="active" src="{% static 'images/user_page/open-eye-icon.png' %}">
-            <img src="{% static 'images/user_page/closed-eye-icon.png' %}">
-        </div>
-        <div id="sort-min">
-			<div id="sort-min-price">
-				<a href="#" id="sort-down" class="sort-price"></a>
-				<span>{% trans 'price' %}</span>
-				<a href="#" id="sort-up" class="sort-price"></a>
-			</div>
-			<div id="sort-min-price-title">{{ profile.get_lots_count }} lot{{ profile.get_lots_count|pluralize }}</div>
-			<div id="sort-min-data">
-				<a href="#" id="sort-down" class="sort-data"></a>
-				<span>{% trans 'date' %}</span>
-				<a href="#" id="sort-up" class="sort-data"></a>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="tab2">
-			<div id="category-container" class="category-container-tab2">
-                {% with goods=user_goods %}
-                    {% include "good_ajax.html" %}
-                {% endwith %}
-                <div class="clear"></div>
-            </div>
-        </div>
-    </div>
-	<section class="interesting-goods-headline">
-		<img src="{% static 'images/user_page/interesting-ribbon.png' %}">
-		<h4 class="title">{% trans 'Intresting goods' %}</h4>
-	</section>
-	<section class="interesting-goods-section">
-        {% for good in goods_with_max_likes %}
-            <div class="item">
-			    <a href="{{ good.get_absolute_url }}">
-                    {% show_good_image good 100 93 'interesting-goods-img' %}
-                    <div class="item-group">
-                        <h5 class="title">{{ good.title }}</h5>
-                        <p class="interesting-goods-price">{{ good.get_good_price_by_deal }} $</p>
-                    </div>
-                </a>
-                <a class="interesting-goods-cta">{% trans 'Buy' %}</a>
-                <div class="clearfix logo-wrap">
-                    <a href="{{ good.user.profile.get_absolute_url }}">
-                        <div class="interesting-goods-logo-wrapper">
-                            {% if good.user.profile.avatar %}
-                                {% thumbnail good.user.profile.avatar "36x36" as im %}
-                                    <img src="{{ im.url }}">
-                                {% endthumbnail %}
-                            {% endif %}
-                        </div>
-                        <div class="interesting-goods-title-wrapper">
-                            <div class="vertical-align">
-                                <p class="copy gray">{% trans 'seller' %}</p>
-                                <p class="copy">{{ good.user.username }}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        {% empty %}
-            {% trans 'No goods found' %}
-        {% endfor %}
-    </section>
-    </div>
-    <footer>
-        {% include 'social_links.html' %}
-    </footer>
-    <div class="overlay"></div>
-    <section class="upload-photo-popup-wrapper logo-module">
-        <div class="caption">{% trans 'Upload image' %}</div>
-        <div class="upload-photo-popup">
-            <div class="section">
-                <img src="{% static 'images/user_page/upload-popup-img1.png' %}">
-                <p class="copy">{% trans 'Take photo from the device' %}</p>
-            </div>
-            <div class="uploadIt">
-                <img src="{% static 'images/user_page/upload-popup-img2.png' %}">
-                <p class="copy">{% trans 'Upload from the device' %}</p>
-            </div>
-            <a class="cta">OK</a>
-            <div class="close">X</div>
-        </div>
-    </section>
-    <section class="upload-photo-popup-wrapper banner-module">
-        <div class="caption">{% trans 'Upload image' %}</div>
-        <div class="upload-photo-popup">
-            <div class="section">
-                <img src="{% static 'images/user_page/upload-popup-img1.png' %}">
-                <p class="copy">{% trans 'Take photo from the device' %}</p>
-            </div>
-            <div class="uploadIt">
-                <img src="{% static 'images/user_page/upload-popup-img2.png' %}">
-                <p class="copy">{% trans 'Upload from the device' %}</p>
-            </div>
-            <a class="cta">OK</a>
-            <div class="close">X</div>
-        </div>
-    </section>
-    <section class="upload-custom-banner-popup">
-        <div class="caption">{% trans 'Upload image' %}</div>
-        <div class="custom-banner-popup">
-            <div class="container">
-                <div class="action">
-                    <div>
-                        <div class="file-upload-wrapper">
-                            <span class="file-upload-label">{% trans 'Choose file' %}</span>
-                            <input type="file" id="file" class="cropit-image-input">
-                        </div>
-                        <span class="file-input" id="fileInputBanner"></span>
-                    </div>
-                    <input type="range" id="zoom" min = "0.5" max = "3.5" value = "1" step="0.1">
-                </div>
-                <div class="imageBox">
-                    <div class="thumbBox"></div>
-                </div>
-                <div class="cropped"></div>
-            </div>
-		    <a class="export"  id="btnCrop">OK</a>
-		    <div class="close">X</div>
-	    </div>
-        <style>
-            .custom-banner-popup input[type="range"] {
-                max-width:300px;
-                float:none;
-                margin:20px auto;
-            }
-            .imageBox {
-                position: relative;
-                height: 300px;
-                width: 100%;
-                background: #fff;
-                overflow: hidden;
-                background-repeat: no-repeat;
-                cursor:move;
-            }
-            .imageBox .thumbBox
-            {
-                position: absolute;
-                top: 50%;
-                left: 0;
-                width: 100%;
-                height: 200px;
-                margin-top: -100px;
-                margin-left: 0;
-                box-sizing: border-box;
-                border: 1px solid rgba(250, 250, 250, 0.6);
-                box-shadow: 0 0 0 1000px rgba(250, 250, 250, 0.7);
-                background: none repeat scroll 0% 0% transparent;
-            }
-            .imageBox .spinner {
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                text-align: center;
-                line-height: 400px;
-                background: rgba(0,0,0,0.7);
-            }
-        </style>
-        </div>
-    </section>
-    <section class="upload-custom-logo-popup ">
-        <div class="caption">{% trans 'Upload image' %}</div>
-        <div class="custom-banner-popup">
-            <div class="image-uploader-logo">
-                <div class="file-upload">
-                    <div class="file-upload-wrapper">
-                        <span class="file-upload-label">{% trans 'Choose file' %}</span>
-                        <input type="file" id="uploadFileLogin" class="cropit-image-input">
-                    </div>
-                    <span class="file-input" id="fileInputLogin"></span>
-                </div>
-                <input type="range" class="cropit-image-zoom-input">
-                <!-- .cropit-image-preview-container is needed for background image to work -->
-                <div class="cropit-image-preview-container">
-                    <div class="cropit-image-preview"></div>
-                </div>
-                <button class="export" id="btnCropAvatar">OK</button>
-            </div>
-            <div class="close">X</div>
-        </div>
-    </section>
-    <section class="complaint-popup">
-        <div class="caption">{% trans 'Complain' %}</div>
-        <div class="complaint-popop-content">
-            <section class="complaint-reason" id="complaint_reason">
-                <h3 class="headline">{% trans 'Reason' %}</h3>
-                <input type="radio" name="complaint-reason" id="reason1" value="{{ OWNER_IMPERSONATE }}">
-                <label for="reason1">{% trans 'Owner profile is impersonating another' %}</label>
-                <input type="radio" name="complaint-reason" id="reason2" value="{{ FRAUD }}">
-                <label for="reason2">{% trans 'Fraud' %}</label>
-                <input type="radio" name="complaint-reason" id="reason3" value="{{ SPAM }}">
-                <label for="reason3">{% trans 'Spam' %}</label>
-                <input type="radio" name="complaint-reason" id="reason4" value="{{ ADVERTISE }}">
-                <label for="reason4">{% trans 'Advertising page clog up search' %}</label>
-            </section>
-            <section class="complaint-comment">
-                <h3 class="headline">{% trans 'Comment' %}</h3>
-                <textarea class="complaint-comment-text" id="textComplaint"></textarea>
-            </section>
-            <section class="complaint-block">
-                {% if profile.user in request.user.my_blocklist.users.all %}
-                    <h3 class="headline" id="block-user" data-block="unblock">{% trans 'Unblock' %}</h3>
-                {% else %}
-                    <h3 class="headline" id="block-user" data-block="block">{% trans 'Block' %}</h3>
-                {% endif %}
-                <div class="block-user-module" id="block-user-module">
-                    <div class="col-2">
-                        <input type="radio" id="confirm-block-n" name="blockUser" value="0">
-                        <label for="confirm-block-n">{% trans 'No, cancel' %}</label>
-                    </div>
-                    <div class="col-2">
-                        <input type="radio" id="confirm-block-y" name="blockUser" value="1">
-                        <label for="confirm-block-y">{% trans 'Yes, confirm' %}</label>
-                    </div>
-                </div>
-                <p class="subheadline">*{% trans 'I do not want to this account could send me messages' %}</p>
-            </section>
-            <a class="cta" id="okComplaint">OK</a>
-            <div class="close">X</div>
-        </div>
-    </section>
-    <section class="reviews-popup-wrapper">
-        <div class="caption">{% trans 'Review' %}</div>
-        <div class="upload-photo-popup">
-            <p class="headline">{% trans 'Your mark' %}</p>
-            <div class="primary-stars clearfix">
-                <div class="rateit bigstars" data-rateit-starwidth="23" data-rateit-starheight="22" data-rateit-resetable="false"  data-rateit-ispreset="true" id="rateReview"></div>
-            </div>
-            <textarea class="reviews-popup-input" id="textReview"></textarea>
-            <a class="cta" id="okReview">OK</a>
-            <div class="close">X</div>
-        </div>
-    </section>
-	<script type="text/javascript" src="{% static 'js/user_page/masonry.pkgd.js' %}"></script>
-    <script src="{% static 'js/vendor/rateit/jquery.rateit.js' %}"></script>
-	<script src="{% static 'js/user_page/jquery.cropit.js' %}"></script>
-    <script>
-        $(function() {
-            $('.image-uploader-logo').cropit({
-                exportZoom: 1.25,
-                imageBackground: true,
-                imageState: {
-                    src: 'http://lorempixel.com/600/200/'
-                }
-            });
-            // Upload avatar and set it on markup by AJAX
-            $('#btnCropAvatar').click(function() {
-                var imageData = $('.image-uploader-logo').cropit('export');
-                console.log(imageData);
-                var formdata = new FormData();
-                formdata.append('avatar', imageData);
-                $.ajax('{% url 'accounts:upload_image' %}', {
-                    type: 'POST',
-                    data: formdata,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        if (data.status == 'ok') {
-                            console.log(data.url);
-                            console.log($('#avatarImageDiv').html());
-                            $('#avatarImageDiv').html('<img src="' + data.url + '" width=90px height=90px class="circular">');
-                            $(".upload-custom-logo-popup, .overlay").hide();
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-	<script src="{% static 'js/user_page/cropbox.js' %}"></script>
-    <script>
-        $(window).load(function() {
-            var options = {
-                thumbBox: '.thumbBox',
-                spinner: '.spinner',
-                imgSrc: 'avatar.png'
-            };
-            var cropper = $('.imageBox').cropbox(options);
-            $('#file').on('change', function(){
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    options.imgSrc = e.target.result;
-                    cropper = $('.imageBox').cropbox(options);
-                };
-                $("#zoom").val(1);
-                reader.readAsDataURL(this.files[0]);
-                this.files = [];
-            });
-
-            // Upload cover by AJAX
-            $('#btnCrop').on('click', function(e){
-                e.preventDefault();
-                var formdata = new FormData();
-                var img = cropper.getDataURL();
-                formdata.append('cover', img);
-                $('.cropped').append('<img src="'+img+'">');
-                // Upload cropped cover on server
-                $.ajax('{% url 'accounts:upload_image' %}', {
-                    type: 'POST',
-                    data: formdata,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        if (data.status == 'ok') {
-                            console.log(data.url);
-                            $('#imageCover').html('<img src="' + data.url + '" width=900px height=222px>');
-                            $(".upload-custom-banner-popup, .overlay").hide();
-                        }
-                    }
-                });
-            });
-
-            $('#btnZoomIn').on('click', function(){
-                cropper.zoomIn();
-            });
-            $('#btnZoomOut').on('click', function(){
-                cropper.zoomOut();
-            });
-            $('#zoom').on('change', function(){
-                var the_val = $(this).val();
-                console.log(the_val);
-                cropper.zoom(the_val);
-            });
-        });
-    </script>
     <script>
         // Google geocoding api. Code user addreess to geo coordinates and initialize map
         var geocoder;
@@ -796,7 +511,7 @@
             geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(55.75, 37.61);
             var mapOptions = {
-                zoom: {% if profile.city %}8 {% else %} 3 {% endif %},
+                zoom: 8,
                 center: latlng
             };
             map = new google.maps.Map(document.getElementById('retailer-location'), mapOptions);
@@ -822,406 +537,6 @@
             initialize();
             codeAddress();
         };
-
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_GEOCODING_KEY }}&callback=initialize"></script>
-	<script>
-        $('#okReview').on('click', function (e) {
-            // Create review send AJAX call
-            e.preventDefault();
-            mark = $('#rateReview').rateit('value');
-            text = $('#textReview').val();
-            about = '{{ profile.user.pk }}';
-            $.post('{% url "accounts:add_review" %}',
-                    {
-                        user_id: about,
-                        text: text,
-                        mark: mark
-                    },
-                    function (data) {
-                        if (data.status == 'ok') {
-                            // If assition of review was successfull - add it
-                            $('#rating_section').children("div.item.clearfix:last").remove();
-                            var div_id = '#' + data.author;
-                            var html = "<div class='item clearfix'><div class='logo-section'><img src='" + data.logo_url +
-                            "' width='37px' height='36px'>" + "</div><div class='text-section'>" +
-                            "<div class='headline'>" + data.author + "<span class='stars'>" +
-                            "<div class='rateit smallstars' data-rateit-value='" + data.mark +
-                            "' data-rateit-ispreset='true' data-rateit-readonly='true' data-rateit-starwidth='12' data-rateit-starheight='12'" +
-                            "id='" + data.author + "'></div></span></div><div class='copy'>" + data.text + "</div></div></div>";
-                            $('#rating_section').prepend(html);
-                            $(div_id).rateit();
-                            $(div_id).rateit('value', data.mark);
-                            // Change total count
-                            var count_prevous_count = parseInt($('#total_marks_number').text());
-                            $('#total_marks_number').text(count_prevous_count + 1);
-                            // Change average mark
-                            var old_avg = parseFloat($('#avgMark').text());
-                            var old_avg_sum = old_avg * count_prevous_count;
-                            var new_avg= (old_avg_sum + Number(data.mark)) / (count_prevous_count + 1);
-                            $('#avgMark').text(new_avg.toFixed(1));
-                            $(".reviews-popup-wrapper, .overlay").hide();
-                        } else {
-                            console.log(data);
-                        }
-                    }
-            );
-        });
-
-
-        {% trans 'Unblock' as unblock %}
-        {% trans 'Block' as block_translated %}
-        // Create complaint and sent AJAX call
-        $('#okComplaint').on('click', function (e) {
-            e.preventDefault();
-            var to_user = '{{ profile.user.pk }}';
-            var text = $('#textComplaint').val();
-            var type = $('input[name=complaint-reason]:checked', '#complaint_reason').val();
-            var block = $('input[name=blockUser]:checked', '#block-user-module').val();
-            $.post('{% url 'complaints:add_complaint' %}', {
-                user_id: to_user,
-                text: text,
-                type: type,
-                block: block
-            }, function (data) {
-                 $(".complaint-popup, .overlay").hide();
-                if (data.status == 'ok') {
-                    if (data.blocked == 1) {
-                        $("#block-user").text("{{ unblock }}");
-                        $("#block-user").attr('data-block', 'unblock');
-                    }
-                }
-            });
-        });
-
-        $("#block-user").click(function(){
-            // If user is blocked - sent request to unblock
-            if ($(this).data('block') == 'unblock') {
-                var to_user = '{{ profile.user.pk }}';
-                $.post('{% url "complaints:remove_from_block" %}', {
-                    user_id: to_user
-                }, function (data) {
-                    if (data.status == 'ok') {
-                        $("#block-user").text("{{ block_translated }}");
-                        $("#block-user").attr('data-block', 'block');
-                    }
-                })
-            } else  {
-                $(this).next().show();
-            }
-        });
-
-		$(".primary-stars .left, .primary-stars .right").hover(
-                function(){
-                    if (!$(".primary-stars .left, .primary-stars .right").hasClass("selected")) {
-                        $(this).addClass("full");
-                        $(this).prevAll().addClass("full");
-                    }
-                }, function() {
-                    if (!$(".primary-stars .left, .primary-stars .right").hasClass("selected")) {
-                        $(this).removeClass("full");
-                        $(this).prevAll().removeClass("full");
-                    }
-                }
-        );
-        document.getElementById("file").onchange = function () {
-            var input = document.getElementById("fileInputBanner");
-            input.innerHTML=this.value;
-        };
-        document.getElementById("uploadFileLogin").onchange = function () {
-            var input = document.getElementById("fileInputLogin");
-            input.innerHTML=this.value;
-        };
-
-        {% if request.user.pk == profile.user.pk %}
-            $(".retailer-logo-wrapper").click(function() {
-                $(".upload-photo-popup-wrapper.logo-module, .overlay").show();
-            });
-        {% endif %}
-
-        $(".upload-custom-banner-popup .close").click(function(){
-            $(".upload-custom-banner-popup, .overlay").hide();
-        });
-        $(".upload-custom-logo-popup .close").click(function(){
-            $(".upload-custom-logo-popup, .overlay").hide();
-        });
-
-        {% if request.user.pk == profile.user.pk %}
-            $(".image-holder").click(function() {
-                $(".upload-photo-popup-wrapper.banner-module, .overlay").show();
-            });
-        {% endif %}
-
-        $(".complaint").click(function() {
-            $(".complaint-popup, .overlay").show();
-            $('html, body').animate({scrollTop: 0 },600);
-        });
-        $(".complaint-popup .close").click(function() {
-            $(".complaint-popup, .overlay").hide();
-        });
-        $(".logo-module .uploadIt").click(function(){
-            $(".upload-photo-popup-wrapper.logo-module").hide();
-            $(".upload-custom-logo-popup").show();
-        });
-        $(".banner-module .uploadIt").click(function(){
-            $(".banner-module").hide();
-			$(".upload-custom-banner-popup").show();
-		});
-
-        $(".primary-stars .left, .primary-stars .right").click(
-                function(){
-                    $(".primary-stars .left, .primary-stars .right").removeClass("selected full");
-                    $(this).addClass("selected");
-                    $(this).prevAll().addClass("selected");
-                }
-        );
-
-        $deliveryBlock = $('.top-pin-container');
-
-        $('.block-delivery .row.center').click(function(){
-            $('.block-delivery').append($deliveryBlock)
-        });
-
-        $('.visibility-eye').click(function(){
-            $(this).toggleClass('active');
-	        $('.additional-stats').toggleClass('show');
-	        $('.category-container-tab2').masonry({
-                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-	            itemSelector: '#category',
-	            // указываем класс элемента являющегося блоком в нашей сетке
-	            singleMode: true,
-	            // true - если у вас все блоки одинаковой ширины
-	            isResizable: true,
-	            // перестраивает блоки при изменении размеров окна
-	            isAnimated: true,
-	            // анимируем перестроение блоков
-	            animationOptions: {
-                    queue: true,
-                    duration: 500
-                }
-	            // опции анимации - очередь и продолжительность анимации
-            });
-
-            $('.category-container-tab3').masonry({
-                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-	            itemSelector: '#category',
-	            // указываем класс элемента являющегося блоком в нашей сетке
-	            singleMode: true,
-	            // true - если у вас все блоки одинаковой ширины
-	            isResizable: true,
-	            // перестраивает блоки при изменении размеров окна
-	            isAnimated: true,
-	            // анимируем перестроение блоков
-	            animationOptions: {
-                    queue: true,
-                    duration: 500
-                }
-                // опции анимации - очередь и продолжительность анимации
-            });
-            $('.category-container-tab1').masonry({
-                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-	            itemSelector: '#category',
-	            // указываем класс элемента являющегося блоком в нашей сетке
-	            singleMode: true,
-	            // true - если у вас все блоки одинаковой ширины
-	            isResizable: true,
-	            // перестраивает блоки при изменении размеров окна
-	            isAnimated: true,
-	            // анимируем перестроение блоков
-	            animationOptions: {
-                    queue: true,
-                    duration: 500
-                }
-                // опции анимации - очередь и продолжительность анимации
-	        });
-	    });
-
-        position_left = $('#wrapper').css('margin-left').replace("px", "");
-	    position_left -=50;
-	    $('.visibility-eye').css('margin-left', position_left);
-
-	    window.onresize = function(){
-            position_left = $('#wrapper').css('margin-left').replace("px", "");
-            position_left -=50;
-            $('.visibility-eye').css('margin-left', position_left);
-        };
-
-        $('#wrapper').hover(
-                function(){
-                    $('.big-cross, .big-cross-right').hide()}, function(){
-                    $('.big-cross, .big-cross-right').show()
-                });
-
-        $('.button-icons .green-buttons').click(function(){
-            $(this).removeClass('active');
-            $('.orange-buttons').addClass('active');
-            $('.discount').css("background", "#bdfe42");
-            $('.hidden-price-panel .pay').css("background", "#ff6600").text("{% trans 'Edit' %}");
-        });
-
-        $('.button-icons .orange-buttons').click(function(){
-            $(this).removeClass('active');
-            $('.green-buttons').addClass('active');
-            $('.discount').css("background", "#ff6600");
-            $('.hidden-price-panel .pay').css("background", "#bdfe42").text("{% trans 'Checkout' %}");
-        });
-
-        $(".module-toggle").click(function(){
-            console.log("module click");
-            $(this).next().toggleClass("active");
-        });
-
-        $('.upload-photo-popup .close').click(function(){
-            $('.upload-photo-popup-wrapper, .overlay').hide();
-        });
-
-        $(".infinity").click(function(){
-            $('.category-container-tab2').masonry({
-                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
-			    itemSelector: '#category',
-		        // указываем класс элемента являющегося блоком в нашей сетке
-                singleMode: true,
-		        // true - если у вас все блоки одинаковой ширины
-			    isResizable: true,
-		        // перестраивает блоки при изменении размеров окна
-			    isAnimated: true,
-		        // анимируем перестроение блоков
-                animationOptions: {
-                    queue: true,
-			        duration: 500
-                }
-		        // опции анимации - очередь и продолжительность анимации
-		    });
-	    });
-
-        $(".text-review-section .cta").click(function(){
-            $(".reviews-popup-wrapper, .overlay").show();
-            $('html, body').animate({scrollTop: 0 },600);
-        });
-
-        $(".reviews-popup-wrapper .close").click(function(){
-            $(".reviews-popup-wrapper, .overlay").hide();
-        });
-
-        $('.promotional-banner').slick({
-            infinite: true,
-            autoplay:true,
-            arrows:false,
-		    autoplaySpeed:12000,
-		    draggable:false
-	    });
-
-	    $('.search-modal').click(function (){
-            $('.search-box').show();
-            $(this).parents('header').hide();
-	    });
-
-        $('.img-search').click(function (){
-            $(this).parent().hide();
-		    $('.blackheader.green').show();
-	    });
-
-	    $('input[class="search"]').keypress(function (e) {
-            var key = e.which;
-            if(key == 13)  // the enter key code
-	        {
-	            $(this).parent().hide();
-	            $('.blackheader.green').show();
-	        }
-	    });
-
-	    $('.dress-section').show();
-
-	    $('.category-goods p').click(function(ev){
-            ev.preventDefault();
-		    var ID = $(this).attr('id'),
-		    openSection = "."+ ID + "-section",
-		    allCats = $('.category-goods p')
-		    allCats.removeClass('highlighted-link')
-		    $(this).addClass('highlighted-link')
-
-		    $('.block-subcategory').find('.hidden-goods').hide();
-		    $('.block-subcategory').find(openSection).show();
-        });
-
-        $('#your-own-category').click(function() {
-            $('.hidden-new-category').show();
-            $('.goods-img').click(function(ev){
-                ev.preventDefault();
-			    ev.stopPropagation();
-			    var theText = $(this).find('.selected-category');
-			    $('#your-own-category').val($(theText).text());
-			    $('.hidden-new-category').hide();
-		    });
-	    });
-
-	    $('.hidden-new-category').click(function(){
-            $(this).hide();
-		    $('.goods-img').click(function(ev){
-                ev.preventDefault();
-                ev.stopPropagation();
-            });
-        });
-
-	    $('.hidden-goods p').click(function(ev){
-            ev.preventDefault();
-            $('.hidden-goods p').removeClass();
-            $(this).addClass('highlighted-link');
-        });
-        function validateNumber(event) {
-            var key = window.event ? event.keyCode : event.which;
-            if (event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
-                return true;
-            } else if ( key < 48 || key > 57 ) {
-                return false;
-            } else return true;
-        };
-
-        $('.number-input, .validate-me').keypress(validateNumber);
-        $('.filter-toggle').click(function(){
-            $('#slider').slider();
-            $(this).next().show();
-            $(this).hide();
-            $('.overlay').show();
-        });
-
-	    var the_height = $(document).height();
-	    $('#open-category').click(function(){
-            $('.big-hidden-block').toggleClass('show');
-            //$('html, body').animate({scrollTop: 0},600);
-            var n = the_height
-            //$('.filter').toggleClass('filter-open')
-            $('.filter').css("bottom", '0vh');
-	    });
-
-	    $('.black').click(function() {
-            $(this).toggleClass('active');
-		    $(this).next().toggle();
-		    //$('html, body').animate({scrollTop: $(document).height() },600);
-		    var filter_height = $('.filter').outerHeight();
-            if (filter_height > $(window).outerHeight()) {
-                $('html, body').animate({scrollTop: $(document).height() },600);
-                setTimeout(function(){
-                    $('.filter').addClass('filter-open')
-                }, 500);
-            };
-        });
-
-        $('.filter-toggle-inner, .closeAll').click(function() {
-            $('.filter').hide();
-		    $('.overlay').hide();
-		    $('.filter-toggle').show();
-		    $('.filter').removeClass('filter-open');
-		    $('.big-hidden-block').removeClass('show');
-		    $('.black').removeClass("active");
-		    $('.black').next().hide();
-        });
-
-        $('.info').click(function() {
-            $('#slider-popup-1').slick();
-            $('#slider-popup-2').slick();
-            $('#slider-popup-3').slick();
-	    });
-    </script>
-</body>
-</html>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDp0ANx34jzCP9DVsGtejZZJeSoHgSx-K4&callback=initialize"></script>
+{% endblock %}

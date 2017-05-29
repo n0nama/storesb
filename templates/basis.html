@@ -1,18 +1,20 @@
 {% load i18n %}
 {% load staticfiles %}
+{% load main_tags %}
+{% load cart_tags %}
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="static/css/semantic.min.css">
-<link rel="stylesheet" type="text/css" href="static/css/basis/main.css">
+<link rel="stylesheet" type="text/css" href="/static/css/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="static/js/semantic.min.js"></script>
-<script src="static/js/basis/main.js"></script>
+<script src="/static/js/semantic.min.js"></script>
+<script src="/static/js/main.js"></script>
 
 {% block scripts %}{% endblock %}
 
@@ -25,12 +27,16 @@
     <div id="up"><i class="angle up icon"></i></div>
     <div id="content" class="ui grid container">
         <a href="#" id="vitrina-icon-bottom">
-	        <img src="static/images/account/vitrina-icon-bottom-n.png">
-            <div class="ui red circular label">22</div>
+	        <img src="/static/images/account/vitrina-icon-bottom-n.png">
+						{% if show_showcase_count > 0 %}
+            <div class="ui red circular label">{% show_showcase_count %}</div>
+						{% endif %}
         </a>
         <a href="#" id="cart-icon-bottom">
-	       <img src="static/images/account/cart-icon-bottom-n.png">
-	       <div class="ui red circular label">2</div>
+	       <img src="/static/images/account/cart-icon-bottom-n.png">
+					{% if show_carts_count > 0 %}
+	       		<div class="ui red circular label">{% show_carts_count %}</div>
+					{% endif %}
         </a>
         <div class="sixteen wide center aligned column" id="topbar">
             <table>
@@ -38,21 +44,23 @@
                     <td><a id="search_button" href="javascript:;" class="icon-search"></a></td>
                     <td class="hideon"><a href="#" class="icon-bf"></a></td>
                     <td class="hideon">
-                        <a href="#" class="icon-message"></a>
-                        <div class="ui red circular label">1</div>
+                        <a href="{% url 'chat:show_thread_list' %}" class="icon-message"></a>
+												{% if request.user|show_unread_message_count|safe > 0 %}
+                        <div class="ui red circular label">{{ request.user|show_unread_message_count|safe }}</div>
+												{% endif %}
                     </td>
                     <td class="hideon">
                         <a href="#" class="icon-wishlist"></a>  
                     </td>
                     <td class="hideon">
-                        <a href="profile/profile.html" class="icon-main"></a>
+                        <a href="{{ request.user.profile.get_absolute_url }}" class="icon-main"></a>
                     </td>
                     <td class="hideon">
-                        <a href="#" class="icon-users"></a>
+                        <a href="{% url 'accounts:user_search' %}" class="icon-users"></a>
                         <div class="ui red circular label">2</div>
                     </td>
                     <td class="hideon"><a href="#" class="icon-statistic"></a></td>
-                    <td class="hideon"><a href="settings/settings.html" class="icon-settings"></a></td>
+                    <td class="hideon"><a href="{% url 'accounts:profile' %}" class="icon-settings"></a></td>
                     <td class="hideon"><a href="#" class="icon-globe"></a></td>
                     <td id="search_input" class="hiden" colspan="8">
                         <form action="/goods/search/" method="get">
@@ -64,28 +72,36 @@
         </div>
         {% block content %}{% endblock %}
         <div id="footer" class="sixteen wide center aligned column">
-            ПРИСОЕДИНЯЙТЕСЬ К НАМ<br></br>
-            <button class="ui circular grey icon button">
+            {% trans 'JOIN US' %}<br></br>
+            <a href="#" class="ui tiny circular grey icon button">
                 <i class="vk icon"></i>
-            </button>
-            <button class="ui circular grey icon button">
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
                 <i class="facebook f icon"></i>
-            </button>
-            <button class="ui circular grey icon button">
-                <i class="odnoklassniki icon"></i>
-            </button>
-            <button class="ui circular grey icon button">
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
+                <i class="instagram icon"></i>
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
                 <i class="google plus icon"></i>
-            </button>
-            <button class="ui circular grey icon button">
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
                 <i class="twitter icon"></i>
-            </button>
-            <button class="ui circular grey icon button">
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
                 <i class="pinterest icon"></i>
-            </button>
+            </a>
             <br></br>
-            SELL-N-BUY. ALL RIGHTS RESERVED. ВСЕ ПРАВА ЗАЩИЩЕНЫ.<br></br>
-            2016
+            SELL-N-BUY. ALL RIGHTS RESERVED.
         </div>
 </body>
+<script src="{% static 'js/online_status.js' %}"></script>
+{% if request.user.is_authenticated %}
+    <script>
+        $(document).ready(function () {
+            var host = "ws://localhost:8888/status/" + {{ request.user.pk }} +"/" ;
+            checkOnline(host);
+        });
+    </script>
+{% endif %}
 </html>

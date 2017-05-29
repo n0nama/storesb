@@ -3,24 +3,28 @@
 {% load thumbnail %}
 {% load i18n %}
 {% for good_same in goods %}
-    <div id="category">
-        <a href="{% url 'goods:good_view' good_same.pk %}">
+    <div id="category" class="ui card" data-price="{{ good_same.get_good_price_by_deal }}" data-date="{{ good_same.created }}">
+        <a class="image" href="{% url 'goods:good_view' good_same.pk %}">
             {% show_good_image good_same '165' '165' %}
         </a>
-        <a href="{{ good_same.user.profile.site|check_http_prefix }}" id="site-min">
-            {{ good_same.user.profile.site }}
-        </a>
-        <div id="rev-min">{{ good_same.title }}</div>
-        <div id="place-min">
-            <a href="{% url 'goods:search' %}?filter=1&location={{ good_same.user.profile.get_country_display }}">{{ good_same.user.profile.get_country_display }}</a>,
-            <a href="{% url 'goods:search' %}?filter=1&location={{ good_same.user.profile.get_country_display }}">{{ good_same.user.profile.city }}</a>
+        <div class="content">
+            <a href="{{ good_same.user.profile.site|check_http_prefix }}" id="site-min">
+                {{ good_same.user.profile.site }}
+            </a>
+            <div class="rev-min">{{ good_same.title }}</div>
+            <div class="place-min">
+                <i class="marker icon"></i>
+                <a href="{% url 'goods:search' %}?filter=1&location={{ good_same.user.profile.get_country_display }}">{{ good_same.user.profile.get_country_display }}</a>,
+                <a href="{% url 'goods:search' %}?filter=1&location={{ good_same.user.profile.get_country_display }}">{{ good_same.user.profile.city }}</a>
+            </div>
         </div>
-        <div id="tags-min-block">
-            {% for tag in good_same.tags.all %}
-                <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.id }}" class="tags-min">{{ tag.name }}</a>,
-            {% empty %}
-                Good without tags
-            {% endfor %}
+        <div class="content">
+            <div id="tags-min-block">
+                {% for tag in good_same.tags.all %}
+                    <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.id }}" class="ui grey small label">{{ tag.name|upper }}</a>
+                {% empty %}
+                    Good without tags
+                {% endfor %}
 {#							<ul id="modal-statistics">#}
 {#								<li>50</li>#}
 {#								<li>50</li>#}
@@ -29,17 +33,19 @@
 {#								<li>50</li>#}
 {#								<div class="clear"></div>#}
 {#							</ul>#}
+            </div>
         </div>
-        <a href="{{ good_same.user.profile.get_absolute.url }}" id="icon-min">
-            {% thumbnail good_same.user.profile.avatar "25x25" as avatar %}
-                <img src="{{ avatar.url }}">
-            {% endthumbnail %}
-        </a>
-        <h4>
-            <a href="{{ good_same.user.profile.get_absolute_url }}">{{ good_same.user.username }}</a>
-        </h4>
-        <span>{{ good_same.user.profile.get_status_display }}</span>
-        <div id="price-min">{{ good_same.get_good_price_by_deal }}</div>
+        <div class="content">
+            <a href="{{ good_same.user.profile.get_absolute.url }}"></a>
+            {% if good_same.user.profile.avatar %}
+                <img src="{{ good_same.user.profile.avatar.url }}" class="ui avatar image left floated meta">
+            {% else %}
+								<img src="https://www.bicyclenetwork.com.au/media/vanilla_content/images/Around%20the%20Bay/2017/blank_male_avatar-2.jpeg"></img>
+						{% endif %}
+            <a href="{{ good_same.user.profile.get_absolute_url }}" class="user_link">{{ good_same.user.username }}</a><br>
+            <span class="user_status">{{ good_same.user.profile.get_status_display }}</span>
+            <div id="price-min" class="right floated meta header price-min">{{ good_same.get_good_price_by_deal }}</div>
+        </div>
     </div>
 {% empty %}
     {% trans 'No results found' %}

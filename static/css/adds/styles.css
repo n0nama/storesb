@@ -6,6 +6,7 @@
 * { margin: 0; padding: 0; list-style: none; text-decoration: none;}
 html, body { 
 	background:url(/static/images/bg.png);
+	font-family: "Pragmatica_Regular", Arial, sans-serif!important;
 }
 
 .clear{clear: both;}
@@ -25,11 +26,11 @@ html, body {
 
 .info-registr{
 	display: block;
-	width: 895px;
+	width: 960px;
 	height: 43px;
 	color: #b6b6b6;
 	font-size: 14px;
-	font-family: "Pragmatica_Regular", Arial, sans-serif;
+	font-family: "Pragmatica_Regular", Arial, sans-serif!important;
 	text-transform: uppercase;
 	text-align: center;
 	padding-top: 28px;
@@ -48,7 +49,7 @@ html, body {
 
 .tabs > div{
 	display: block;
-	width: 617px;
+	width: 800px;
 	margin: 25px auto 0;
 }
 

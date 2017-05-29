@@ -2,95 +2,78 @@
 {% load thumbnail %}
 {% load i18n %}
 {% load main_tags %}
-        {% if objects_count > 0 and objects_count <= 3 and objects.number == 1 %}
-            {% include "search_sellers.html" %}
-        {% endif %}
-        {% for object in objects %}
-            {% if objects_count > 3 and forloop.counter0 == 2 and objects.number == 1 %}
-                {% include "search_sellers.html" %}
-            {% endif %}
-            <div id="category" data-deal-filter='{{ object.deal }}' class="{% if object.deal == AUCTION %}auction{% elif object.deal == SALE %}sale{% endif %} deal">
-                <a rel="example_group" class="fancybox fancybox.iframe" href="{% url 'goods:goods_modal' object.pk %}">
+{% if objects_count > 0 and objects_count <= 3 and objects.number == 1 %}
+            {% include 'search_sellers.html' %}
+{% endif %}
+{% for object in objects %}
+    {% if objects_count > 3 and forloop.counter0 == 2 and objects.number == 1 %}
+        {% include "search_sellers.html" %}
+    {% endif %}
+            <div class="ui card" data-deal-filter='{{ object.deal }}' class="{% if object.deal == AUCTION %}auction{% elif object.deal == SALE %}sale{% endif %} deal">
+                <a rel="example_group" class="image fancybox fancybox.iframe" href="{% url 'goods:goods_modal' object.pk %}">
                     {% if object.get_first_image %}
-                        {% thumbnail object.get_first_image.image "165x165" as im %}
-                            <img src="{{ im.url }}">
-                        {% endthumbnail %}
+                        <img src="{{ object.get_first_image.image.url }}">
                     {% else %}
                         <img src="{% static 'images/no-good-image.png' %}">
                     {% endif %}
                 </a>
-                <div class="additional-stats show">
+                <div class="additional-stats show content">
                     <a href="{{ object.user.profile.site|check_http_prefix }}" id="site-min">
                         {{ object.user.profile.site }}
                     </a>
-                    <div id="rev-min">
+                    <div class="rev-min">
                         {{ object.title }}
                     </div>
-                    <div id="place-min">
-                        <a href="{% url 'goods:search' %}?filter=1&location={{ object.user.profile.get_country_display }}">{{ object.user.profile.get_country_display }}</a>
+                    <div class="place-min">
+                        <i class="marker icon"></i>
+                        <a href="{% url 'goods:search' %}?filter=1&location={{ object.user.profile.get_country_display }}">{{ object.user.profile.get_country_display }},</a>
                         <a href="{% url 'goods:search' %}?filter=1&location={{ object.user.profile.city}}">{{ object.user.profile.city }}</a>
                     </div>
+                </div>
+                <div class="content">
                     <div id="tags-min-block">
                         {% for tag in object.tags.all %}
-                            <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.name }}" class="tags-min">{{ tag.name }}</a>,
-                            <br>
+                            <a href="#" class="ui small olive label">{{ tag.name }}</a>
                         {% empty %}
                             Good without tags
                         {% endfor %}
-{#                        <ul id="modal-statistics">#}
-{#                            <li>50</li>#}
-{#                            <li>50</li>#}
-{#                            <li>50</li>#}
-{#                            <li>50</li>#}
-{#                            <li>50</li>#}
-{#                            <div class="clear"></div>#}
-{#                        </ul>#}
                     </div>
                 </div>
-                <a href="{{ object.user.profile.get_absolute_url }}" id="icon-min">
-                    {% thumbnail object.user.profile.avatar "25x25" as avatar %}
-                        <img src="{{ avatar.url }}">
-                    {% endthumbnail %}
-                </a>
-                <h4>
-                    <a href="{{ object.user.profile.get_absolute_url }}">{{ object.user.username }}</a>
-                </h4>
-                <span>{{ object.user.profile.get_status_display }}</span>
-                <div class="price-min-wrapper">
+                <!--<div class="content">
+                        <ul id="modal-statistics">
+                            <li>50</li>
+                            <li>50</li>
+                            <li>50</li>
+                            <li>50</li>
+                            <li>50</li>
+                            <div class="clear"></div>
+                        </ul>
+                </div>-->
+                <div class="content">
+                {% if object.user.profile.avatar %}
+                    <img src="{{ object.user.profile.avatar.url }}" class="ui avatar image left floated meta">
+                {% else %}
+								    <img src="https://www.bicyclenetwork.com.au/media/vanilla_content/images/Around%20the%20Bay/2017/blank_male_avatar-2.jpeg" class="ui avatar image left floated meta"></img>
+						    {% endif %}
+                <a class="user_link" href="{{ object.user.profile.get_absolute_url }}">{{ object.user.username }}</a><br>
+                <span class="user_status">{{ object.user.profile.get_status_display }}</span>
+                <div class="right floated meta header price-min">
                     {% if object.deal == SALE %}
-                        <p class="clearfix">
-                            <span class="right bold">{{ object.new_price }}</span>
-                        </p>
-                        <p class="clearfix">
-                            <span class="little-words">{% trans 'new price' %}</span>
-                        </p>
-                        <p class="clearfix hide">
-                            <span class="line-through">{{ object.old_price }} $</span>
-                        </p>
-                        <p class="clearfix">
-                            <span class="little-words">{% trans 'old price' %}</span>
-                        </p>
+                        {{ object.new_price }}
+                        {% trans 'new price' %}
+                        {{ object.old_price }} $
+                        {% trans 'old price' %}
                     {% elif object.deal == BUY_SELL %}
-                        <p class="clearfix">
-                            <span class="right bold">{{ object.price }}</span>
-                        </p>
+                        {{ object.price|floatformat }}
                     {% else %}
-                        <p class="clearfix">
-                            <span class="right bold">{{ object.reserve_price }}</span>
-                        </p>
-                        <p class="clearfix">
-                            <span class="little-words">{{ object.bids.count }} {% trans 'bids' %}</span>
-                        </p>
-                        <p class="clearfix hide">
-                            <span class="line-through">{{ object.max_price }} $</span>
-                        </p>
-                        <p class="clearfix">
-                            <span class="little-words">{% trans 'fix price' %}</span>
-                        </p>
+                        {{ object.reserve_price }}
+                        {{ object.bids.count }} {% trans 'bids' %}
+                        {{ object.max_price }} $
+                        {% trans 'fix price' %}
                     {% endif %}
-                    <div class="hidden-price-panel">
-                        <button class="pay">{% trans 'Pay' %}</button>
-                    </div>
+                </div>
+                <!--<div class="hidden-price-panel">
+                    <button class="pay">{% trans 'Pay' %}</button>
                 </div>
                 {% if object.deal == SALE %}
                     <div class="discount">{{ object.get_sale_percent }} %</div>
@@ -99,11 +82,13 @@
                 {% endif %}
                 <div class="cross-goods">
                     <img src="{% static 'images/categories/cross-little-icon.png' %}">
+                </div>-->
                 </div>
-                <div class="clear"></div>
             </div>
         {% empty %}
-            <div style="text-align: center">
+            <div class="sixteen wide center aligned column">
+            <h2>
                 <p class="sum-text">{% trans 'No results found' %}</p>
+            </h2>
             </div>
         {% endfor %}

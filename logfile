@@ -230,3 +230,33 @@
 [20/Mar/2017 11:20:06] DEBUG [goods.tasks:28] Tasks set_disabled_goods running
 [20/Mar/2017 11:21:06] DEBUG [goods.tasks:28] Tasks set_disabled_goods running
 [20/Mar/2017 11:22:06] DEBUG [goods.tasks:28] Tasks set_disabled_goods running
+[17/Apr/2017 10:50:24] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Activate your account
+[17/Apr/2017 11:01:13] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Activate your account
+[17/Apr/2017 11:58:43] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Activate your account
+[17/Apr/2017 12:01:05] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Activate your account
+[17/Apr/2017 14:15:57] ERROR [accounts.tasks:36] Result reject
+[17/Apr/2017 14:23:25] ERROR [accounts.tasks:36] Result reject
+[17/Apr/2017 14:25:16] DEBUG [accounts.tasks:52] Email was sent to arton.design.studio@gmail.com. Subject Activate your account
+[17/Apr/2017 14:29:30] ERROR [accounts.tasks:36] Result reject
+[17/Apr/2017 14:33:15] DEBUG [accounts.tasks:52] Email was sent to arton.design.studio@gmail.com. Subject Request for password reset
+[17/Apr/2017 14:41:33] DEBUG [accounts.tasks:52] Email was sent to arton.design.studio@gmail.com. Subject Request for password reset
+[17/Apr/2017 15:26:39] ERROR [accounts.tasks:36] Result reject
+[17/Apr/2017 15:27:57] ERROR [accounts.tasks:36] Result reject
+[18/Apr/2017 07:42:14] DEBUG [accounts.tasks:33] Result accepted, id 37956412
+[18/Apr/2017 07:45:01] DEBUG [accounts.tasks:33] Result accepted, id 37956460
+[18/Apr/2017 07:53:00] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Activate your account
+[18/Apr/2017 07:54:36] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Request for password reset
+[18/Apr/2017 07:55:40] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Request for password reset
+[18/Apr/2017 07:56:23] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Request for password reset
+[18/Apr/2017 07:58:54] DEBUG [accounts.tasks:52] Email was sent to freempt1@gmail.com. Subject Request for password reset
+[18/Apr/2017 08:41:06] DEBUG [accounts.tasks:33] Result accepted, id 37957403
+[19/Apr/2017 12:07:46] DEBUG [accounts.tasks:33] Result accepted, id 37979916
+[20/Apr/2017 12:14:00] ERROR [accounts.tasks:36] Result reject
+[20/Apr/2017 12:14:57] ERROR [accounts.tasks:36] Result reject
+[20/Apr/2017 12:30:45] DEBUG [accounts.tasks:33] Result accepted, id 37998342
+[20/Apr/2017 12:31:54] DEBUG [accounts.tasks:33] Result accepted, id 37998360
+[20/Apr/2017 12:36:53] DEBUG [accounts.tasks:33] Result accepted, id 37998432
+[20/Apr/2017 12:39:02] DEBUG [accounts.tasks:33] Result accepted, id 37998460
+[21/Apr/2017 17:54:08] ERROR [accounts.tasks:36] Result reject
+[21/Apr/2017 18:03:28] DEBUG [accounts.tasks:33] Result accepted, id 38017973
+[21/Apr/2017 18:06:04] DEBUG [accounts.tasks:33] Result accepted, id 38018018

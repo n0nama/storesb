@@ -3,6 +3,7 @@
 
 {% block title %}{% trans 'Terms and Privacy' %}{% endblock %}
 {% block content %}
+				{% if request.LANGUAGE_CODE == "ru" %}
         <h3 class="mh32">Спасибо Вам за использование Sell-n-Buy!</h3>
 				<p>1. Использование Sell-n-Buy </p>
 				<p style="margin-left:17px">a. Кто может использовать Sell-n-Buy</p>
@@ -47,4 +48,46 @@
 				<h4>Вы всегда можете помочь нам сделать Sell-n-Buy лучше.</h4>
 				<p>Sell-n-Buy всегда может расширить или изменить (редактировать) действие данных правил в любое время, без личного уведомления пользователей. <br>
 				Предлагая Ваши пожелания по модернизации Sell-n-Buy, Вы должны помнить и учитывать, что другие третьи лица, а так же сами разработчики Sell-n-Buy могут уже предложить подобные идеи к разработке.</p>
+				{% else %}
+				<h3 class="mh32">THANK YOU FOR USING SELL-N-BUY!</h3>
+				<p>1. Using of Sell-n-Buy </p>
+				<p style="margin-left:17px">a. Who can use Sell-n-Buy?</p>
+				<p>Any private person, individual entrepreneur, legal entity or any other organization of any country or state. You can use our product only after familiarization with the rules and obligations of Sell-n-Buy, and with the relevant current rules and obligations for use of our platform. <br>
+				When creating an account with Sell-n-Buy, you must provide accurate and relevant information.
+				<br>
+				Any use or access by individuals under the age of 18 without parental consent is prohibited. <br>
+				If you open an account on behalf of a company, organization, or other legal entity, you and other representatives guarantee that you have the right to provide all the placements and licenses on behalf of the organization, after familiarization with the rules and obligations of Sell-n-Buy. You also guarantee that you create your Sell-n-Buy account on behalf of not only an individual, but also an organization, on the basis of familiarization with the rules of Sell-n-Buy.</p>
+				<p>P.S.: You accept the fact that we can automatically update our product to improve our resource, modernize it and use innovations.p>
+				<p style="margin-left:17px">b. Our platform for you</p>
+				<p>Taking into consideration these conditions and our rules of the Sell-n-Buy platform (including our acceptable use policy), we grant you a limited, non-exclusive, non-transferable right to open an account of our resource. You have no right for revocation of the Consent to the usage rules.</p>
+				<p style="margin-left:17px">c. Commercial use of Sell-n-Buy</p>
+				<p> If you want to use our product for commercial purposes, you need to create a business account and after that re-agree to our terms and conditions of use of our platform. </p>
+				<p>2. Your content </p>
+				<p style="margin-left:17px">a. Publication of the content </p>
+				<p> Sell-n-Buy allows you to publish the following content: goods, lots, photos, comments, references and other materials. You retain all the rights to use the material and are solely responsible for your materials published on Sell-n-Buy.p>
+				<p style="margin-left:17px">b. Sell-n-Buy and other users can use your content.</p>
+				<p> After the publication of your materials, you grant Sell-n-Buy and its users with the right of free transfer of published resources for worldwide use, storage, familiarization and other use for personal purposes, as well as other exploitation.
+				We reserve the right to remove or modify user’s content for any reason, including user’s materials, which, in our opinion, violate the aforesaid terms or our resource rules. </p>
+				<p style="margin-left:17px">c. For how long do we store your content?</p>
+				<p> After the expiration of the indicated by you publication period of goods or a lot, they go to the archive. You can re-enable or delete it if you want. After the termination or deactivation of your account, or if you delete your user-generated content, it will immediately be removed from our resource both from the general display of goods, and from private pages of users (the wish list and the news list). </p>
+				<p style="margin-left:17px">d. Spam</p>
+				<p> We reserve the right to delete materials or accounts for publication of spam or violation of the rules of conduct on our resource.</p>
+				<p>3. Security </p>
+				<p> We care about the safety of our users. We always work to ensure the security of your content and account, but Sell-n-Buy can not guarantee that third parties will never be able to defeat our security measures. Please, immediately notify us of any unauthorized use of your account so that we can immediately take action. </p>
+				<p>4. Third-party links, websites and services </p>
+				<p> Our platform may contain links to third-party websites, advertisers, services, special offers, promotions or other events or activities that are not owned or controlled by Sell-n-Buy.
+				For this reason, we do not endorse or assume any responsibility for the information and materials published on any such third-party websites or resources. <br>
+				If you go to or get access to any such external resources from published on Sell-n-Buy, any materials from other websites, you bare full responsibility for such activity and you do it at your own peril and risk. <br>
+				We also do not confirm or accept any responsibility for materials, products or services or the accuracy of the information or events and promotions published on our website. <br>
+				But we always try to prevent any unpleasant incident. If you encounter fraud or receive defective goods, product or service published on our website, you assume full responsibility and you agree that for the reasons stated above, Sell-n-Buy does not bear any responsibility arising from the use or access to any unreliable information or any materials; any low-quality product or service; any events and promotions. In order to avoid such incidents, we ask you to inform us immediately about them, so that we take all necessary measures. </p>
+				<p>5 Refund </p>
+				<p> If you use our resource for commercial purposes, but for some reason an unfavorable incident, mentioned in clause 4, took place, you agree to protect Sell-n-Buy and its officers, managers, developers, employees and agents from any claims, proceedings , disputes, claims, liabilities, damages, costs and expenses, including legal and accounting fees (including expenses for the defense against any claims, suits or litigations brought by third parties) in any case when the incident occurred when  you move to any other resource, besides our resource. <br>
+				If you use our resource for a business account, but for any reason an unfavorable incident, mentioned in clause 3, you agree to protect Sell-n-Buy and its officers, directors, developers, employees and agents from any claims, proceedings , disputes, claims, liabilities, losses, costs and expenses, including legal and accounting fees (including expenses for the defense from claims, lawsuits or litigations brought by third parties) in any case when such incident took place because of you. <br>
+				In order to avoid such situations, we ask you to inform us immediately about such incidents, so that we take all necessary measures. </p>
+				<p>6 Change or Termination </p>
+				<p> Sell-n-Buy can always extend or change (edit) the application of these rules at any time, without prior notification to the users. Sell-n-Buy can always terminate any materials or accounts published on the resource without prior notification to the user. </p>
+				<h4> You can always help us to make SELL-N-BUY better.</h4>
+				<p> Sell-n-Buy can always extend or modify (edit) the application of these rules at any time, without personal notification of the users. <br>
+				Offering your suggestions for improving of Sell-n-Buy, you must remember and keep in mind that third parties, as well as the developers of Sell-n-Buy might have already offered such ideas for development.</p>
+				{% endif %}
 {% endblock %}

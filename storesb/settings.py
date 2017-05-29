@@ -244,10 +244,11 @@ LOGGING = {
 # EMAIL BACKEND (for developing process)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
+#EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'storesb.robot@gmail.com'
-EMAIL_HOST_PASSWORD = '1qazXSW@1qazXSW@'
+EMAIL_HOST_PASSWORD = 'Secret99**'
 FAIL_EMAIL_SILENTLY = False
 
 # Celery settings
@@ -346,11 +347,6 @@ SOCIAL_AUTH_PINTEREST_SCOPE = [
 SOCIAL_AUTH_VK_OAUTH2_KEY = '5612401'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'nGzRnugzoOQCM1shBWvy'
 # SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
-
-# NO GOOD IMAGE
-NO_GOOD = 'images/no-good-image.png'
-
-# TINYMCE SETTINGS
 
 # TINYMCE SETTINGS
 TINYMCE_FILEBROWSER = True

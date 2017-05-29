@@ -1,72 +1,225 @@
-{% extends 'registration/base.html' %}
+{% extends 'basis.html' %}
 {% load i18n %}
 {% load staticfiles %}
 {% load main_tags %}
 {% block title %}{% trans 'Edit your account' %}{% endblock %}
 {% block scripts %}
-    <link rel="stylesheet" href="{% static 'css/account/Mstyle.css' %}" type="text/css" media="all">
-    <script type="text/javascript" src="{% static 'js/account/jquery.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/account/account.css">
 {#    <script type="text/javascript" src="{% static 'js/calc.js' %}"></script>#}
-    <!--[if IE]>
-	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
-	    <script type="text/javascript" src="js/html5.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/acccounts_styles.css' %}">
-    
+<script type="text/javascript" src="{% static 'js/account/settings.js' %}"></script>
 {% endblock %}
 {% block content %}
-    <script type="text/javascript">
-        $(function() {
-            $(window).scroll(function() {
-                if($(this).scrollTop() != 0) {
-                    $('#up').fadeIn();
-                } else {
-                    $('#up').fadeOut();
-                }
-            });
-            $('#up').click(function() {
-                $('body,html').animate({scrollTop:0},800);
-            });
-        });
-    </script>
-    <script type="text/javascript">
-	    $(document).ready(function() {
-	        var i = 1;
-	        $('.pass').click(function(){
-	            if(i==1){
-		            $('#id_new_password').attr('type', 'text');
-		            i = 2;
-	            } else {
-		            $('#id_new_password').attr('type', 'password');
-		            i = 1;
-                }
-            });
-            $('.editadressbutton').click(function(){
-                $('.adressinput').focus();
-                $('.helpadress').show();
-            });
-            $('.deleteacc').click(function() {
-                if (confirm("Вы точно желаете удалить свою страницу?")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-            $(document).find("input#id_org_form_0:checked, input#id_org_form_1:checked, input#id_sex_0:checked, input#id_sex_1:checked").addClass('bounce');
-    		$("#id_org_form_0, #id_org_form_1, #id_sex_0, #id_sex_1").click(function() {
-                $(this).prop('checked', false);
-                $(this).toggleClass('bounce');
-                if( $(this).hasClass('bounce') ) {
-                    $(this).prop('checked', true);
-                    $(document).find("input:not(:checked)[type='radio']").removeClass('bounce');
-                }
-            });
-        }); //Конец ready
-    </script>
-<div id="wrapper" class="green">
-    <div id="up"></div>
-    
-	<header class="black">
+<div class="sixteen wide center aligned column" id="infobar"><h5>{% trans 'Account settings' %}</h5></div>
+				{% if messages %}
+        <div class="sixteen wide center aligned column padless">
+        		{% for message in messages %}
+            		<h5 class="ui red header">{{ message }}</h5>
+        		{% endfor %}
+				</div>
+    		{% endif %}
+        <div class="sixteen wide center aligned column padless">
+            <h5 class="ui header">{% trans 'Welcome' %} {{ request.user.username }}!</h5>
+        </div>
+    <div class="sixteen wide column padless">
+        <form class="ui form" action="." method="post">
+				{% csrf_token %}
+        <div class="ui segment grid">
+            <div class="sixteen wide center aligned column">
+                <h4>{% trans 'Profile' %}</h4>
+            </div>
+            <div class="two wide column"></div>
+            <div class="three wide left aligned column">
+                <h5>{% trans 'Username' %}</h5>
+                <h5>E-mail</h5>
+                <h5>{% trans 'Phone' %}</h5>
+                <h5>{% trans 'Additional phone' %}</h5>
+                <h5>Skype</h5>
+                <h5>Instagram</h5>
+                <h5>{% trans 'Web-site' %}</h5>
+                <h5>{% trans 'Country' %}</h5>
+                <h5>{% trans 'City' %}</h5>
+                <h5>{% trans 'You are?' %}</h5>
+                <h5>{% trans 'Sex' %}</h5>
+            </div>
+            <div class="one wide column"></div>
+            <div class="nine wide right aligned column accurate_fields">
+                <div class="field">
+                    {{ user_edit_form.username }}{{ user_edit_form.username.errors.as_text }}
+                </div>
+                <div class="field">
+                    {{ user_edit_form.email }}{{ user_edit_form.email.errors.as_text }}
+                </div>
+                <div class="field">
+                    {{ profile_edit_form.phone }}{{ profile_edit_form.phone.errors.as_text }}
+                </div>
+                <div class="field">
+                    {{ profile_edit_form.additional_phone }}{{ profile_edit_form.additional_phone.errors.as_text }}
+                </div>
+                <div class="field">
+                    {{ profile_edit_form.skype }}{{ profile_edit_form.skype.errors.as_text }}
+                </div>
+                <div class="field">
+                    {{ profile_edit_form.instagram }}{{ profile_edit_form.instagram.errors.as_text }}
+                </div>
+                <div class="field">
+                    {{ profile_edit_form.site }}{{ profile_edit_form.site.errors.as_text }}
+                </div>
+                <div class="field">
+                    {{ profile_edit_form.country }}
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        {{ profile_edit_form.city }}{{ profile_edit_form.city.errors.as_text }}
+                    <i class="marker icon"></i>
+                    </div>
+                </div>
+                <div class="two inline fields equal">
+										{% for radio in profile_edit_form.org_form %}
+                    <div class="field radiocust olive">
+                    		{{ radio.tag }}
+                    		<label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                    </div>
+                		{% endfor %}
+                </div>
+                <div class="three inline fields accurate equal">
+									{% for radio in profile_edit_form.sex %}
+                	<div class="field radiocust olive">
+                    	{{ radio.tag }}
+                    	<label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                	</div>
+                	{% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="ui segment grid">
+            <div class="sixteen wide center aligned column">
+                <h4>{% trans 'Information' %}</h4>
+            </div>
+            <div class="two wide column"></div>
+            <div class="three wide left aligned column">
+                <h5>{% trans 'About' %}</h5>
+            </div>
+            <div class="one wide column"></div>
+            <div class="nine wide right aligned column">
+                <div class="field">
+                		{{ profile_edit_form.description }}
+                		{{ profile_edit_form.description.errors.as_text }}
+                </div>
+            </div>
+        </div>
+        <div class="ui segment grid">
+        <!-- Social networks block -->
+            <div class="sixteen wide center aligned column">
+                <h4>{% trans 'Automaticly publish in' %}</h4>
+            </div>
+            <div class="two wide center aligned column"></div>
+								{% for network in profile_edit_form.auto_post_to_networks %}
+									<div class="four wide center aligned column">
+                   	<div class="checkcust olive">
+                  	  {{ network.tag }}
+                    	<label for="{{ network.id_for_label }}" class="interface"><i class="{% if network.choice_label == 'vkontakte' %}vk{% else %}{{ network.choice_label }}{% endif %} icon"></i>{{ network.choice_label }}</label>
+								    </div>
+                	</div>
+                {% endfor %}
+                <!--<div class="four wide center aligned column">
+                    <div class="checkcust olive">
+                        <input type="checkbox" name="auto_post_to_networks" id="id_auto_post_to_networks_0" value="1">
+                        <label for="id_auto_post_to_networks_0" class="interface"><i class="facebook icon"></i>Facebook</label>
+                    </div>
+                </div>
+                <div class="four wide center aligned column">
+                    <div class="checkcust olive">
+                        <input type="checkbox" name="auto_post_to_networks" id="id_auto_post_to_networks_1" value="2">
+                        <label for="id_auto_post_to_networks_1" class="interface"><i class="vk icon"></i>vKontakte</label>
+                    </div>
+                </div>
+                <div class="two wide center aligned column">
+                    <div class="checkcust olive">
+                        <input type="checkbox" name="twitter" id="twitter">
+                        <label for="twitter" class="interface">Twitter</label>
+                    </div>
+                </div>
+                <div class="four wide center aligned column">
+                    <div class="checkcust olive">
+                        <input type="checkbox" name="auto_post_to_networks" id="id_auto_post_to_networks_2" value="3">
+                        <label for="id_auto_post_to_networks_2" class="interface"><i class="pinterest icon"></i>Pinterest</label>
+                    </div>
+                </div>-->
+            <div class="two wide center aligned column"></div>
+        </div>
+        <!-- End social networks block -->
+        <div class="ui segment grid">
+            <div class="sixteen wide center aligned column">
+                <h4>{% trans 'Your page addree' %}</h4>
+            </div>
+            <div class="two wide column"></div>
+            <div class="three wide left aligned column">
+                <h5>{% trans 'Page address' %}</h5>
+            </div>
+            <div class="one wide column"></div>
+            <div class="nine wide right aligned column">
+                <div class="inline fields">
+										STORESB.COM/
+                    <div class="sixteen wide field paddless" data-tooltip="{% blocktrans %}
+                        You can change the short address of your page to a convenient and memorable.
+                        To do this, enter the page name consisting of letters, numbers or symbols '_'.
+                    {% endblocktrans %}">
+												{{ profile_edit_form.slug }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui segment grid">
+            <div class="sixteen wide center aligned column">
+                <h4>{% trans 'Account' %}</h4>
+            </div>
+            <div class="seven wide center aligned column"></div>
+            <div class="two wide center aligned column">
+                <input type="submit" class="ui small olive fluid button" value="EDIT" name="edit"><br>
+                <a href="{% url 'accounts:logout' %}" class="ui small grey basic fluid button">LOGOUT</a></div>
+            <div class="seven wide center aligned column"></div>
+        </div>
+        </form>
+        <form action="." method="post" class="ui form">
+				{% csrf_token %}
+        <div class="ui segment grid">
+            <div class="sixteen wide center aligned column">
+                <h4>{% trans 'Change password' %}</h4>
+            </div>
+            <div class="two wide column"></div>
+            <div class="three wide left aligned column">
+                <h5>{% trans 'Current password' %}</h5>
+                <h5>{% trans 'New password' %}</h5>
+                <h5>{% trans 'Confirm password' %}</h5>
+            </div>
+            <div class="one wide column"></div>
+            <div class="nine wide right aligned column">
+                <div class="field">
+                    {{ password_form.old_password }}{{ password_form.old_password.errors.as_text }}
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                    <i id="showpass" class="hide link icon"></i>
+                    {{ password_form.new_password1 }}{{ password_form.new_password1.errors.as_text }}
+                    </div>
+                </div>
+                <div class="field">
+                    {{ password_form.new_password2 }}{{ password_form.new_password2.errors.as_text }}
+                </div>
+            </div>
+            <div class="seven wide center aligned column"></div>
+            <div class="two wide center aligned column">
+                <input class="ui small olive fluid button" type="submit" value="OK" name="password">
+            </div>
+            <div class="seven wide center aligned column"></div>
+        </div>
+    		</form>
+        <div style="text-align: center">
+            <a href="{% url 'accounts:restore_password' %}" class="recovery-pass">Did you forget your account or password?</a>
+        </div>
+    </div>
+{% endblock %}
+<header class="black">
 		<ul>
 			<li><div></div></li>
 			<li>
@@ -100,136 +253,3 @@
             </li>
 			<li><a href="{% url 'accounts:profile' %}"></a></li>
 			<li>
-                <a href="{% url 'accounts:logout' %}">
-                    <div></div>
-                </a>
-            </li>
-		</ul>
-		<div class="clear"></div>
-	</header>
-	<h3 class="acc-title">{% trans 'Account settings' %}</h3>
-    {% if messages %}
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    {% endif %}
-    <div>
-        <h2 class="acc-title">{% trans 'Welcome' %} {{ request.user.username }}!</h2>
-    </div>
-    <form action="." method="post">
-        {% csrf_token %}
-	    <div id="acc-block">
-		    <h4>{% trans 'Profile' %}</h4>
-		    <div class="acc-block-left">
-			    <p>{% trans 'Username' %}</p>
-			    <p>E-mail</p>
-			    <p>{% trans 'Phone' %}</p>
-			    <p>{% trans 'Additional phone' %}</p>
-			    <p>Skype</p>
-			    <p>Instagram</p>
-			    <p>{% trans 'Web-site' %}</p>
-			    <p>{% trans 'Country' %}</p>
-                <p>{% trans 'City' %}</p>
-			    <p>{% trans 'You are?' %}</p>
-			    <p>{% trans 'Sex' %}</p>
-		    </div>
-		    <div class="acc-block-right">
-                {{ user_edit_form.username }}{{ user_edit_form.username.errors.as_text }}<br>
-                {{ user_edit_form.email }}{{ user_edit_form.email.errors.as_text }}<br>
-                {{ profile_edit_form.phone }}{{ profile_edit_form.phone.errors.as_text }}<br>
-                {{ profile_edit_form.additional_phone }}{{ profile_edit_form.additional_phone.errors.as_text }}<br>
-                {{ profile_edit_form.skype }}{{ profile_edit_form.skype.errors.as_text }}<br>
-                {{ profile_edit_form.instagram }}{{ profile_edit_form.instagram.errors.as_text }}<br>
-                {{ profile_edit_form.site }}{{ profile_edit_form.site.errors.as_text }}<br>
-                <i class="adress"></i>
-                {{ profile_edit_form.country }}<br>
-                <i class="adress"></i>{{ profile_edit_form.city }}{{ profile_edit_form.city.errors.as_text }}<br>
-                {% for radio in profile_edit_form.org_form %}
-                    {{ radio.tag }}
-                    <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                {% endfor %}
-                {% for radio in profile_edit_form.sex %}
-                    {{ radio.tag }}
-                    <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                {% endfor %}
-		    </div>
-		    <div class="clear"></div>
-	    </div>
-	    <div id="acc-block">
-		    <h4>{% trans 'Information' %}</h4>
-		    <div class="acc-block-left">
-			    <p>{% trans 'About' %}</p>
-		    </div>
-		    <div class="acc-block-right">
-                {{ profile_edit_form.description }}
-                {{ profile_edit_form.description.errors.as_text }}
-		    </div>
-		    <div class="clear"></div>
-	    </div>
-        <!-- Social networks block -->
-    	<div id="acc-block">
-		    <h4>{% trans 'Automaticly publish in' %}</h4>
-		    <div class="acc-block-left">
-                {% for network in profile_edit_form.auto_post_to_networks %}
-                    {{ network.tag }}
-                    <label for="{{ network.id_for_label }}" class="interface">{{ network.choice_label }}</label>
-                {% endfor %}
-		    </div>
-		    <div class="clear"></div>
-	    </div>
-        <!-- End social networks block -->
-	    <div id="acc-block">
-		    <h4>{% trans 'Your page addree' %}</h4>
-		    <div class="acc-block-left">
-			    <p>{% trans 'Page address' %}</p>
-		    </div>
-		    <div class="acc-block-right">
-			    <div class="adressedit">
-				    <div class="adresstext">STORESB.COM/</div>
-                    {{ profile_edit_form.slug|add_class_to_formfield:"adressinput" }}
-                    {{ profile_edit_form.slug.errors.as_text }}
-				    <div class="helpadress">
-                        {% blocktrans %}
-                            You can change the short address of your page to a convenient and memorable. To do this, enter the page name consisting of letters, numbers or symbols "_".
-                        {% endblocktrans %}
-                    </div>
-			    </div>
-            </div>
-		    <div class="clear"></div>
-		    <h5 class="editadressbutton">{% trans 'Change address' %}</h5>
-	    </div>
-	    <div id="acc-block">
-		    <h4>Аккаунт</h4>
-		    <input type="submit" value="{% trans 'Edit' %}" name="edit">
-		    <h5 class="deleteacc">{% trans 'Delete account' %}</h5>
-	    </div>
-	</form>
-    <form action="." method="post">
-        <div id="acc-block">
-            <h4>{% trans 'Change password' %}</h4>
-            <div class="acc-block-left">
-                <p>{% trans 'Current password' %}</p>
-                <p>{% trans 'New password' %}</p>
-                <p>{% trans 'Confirm password' %}</p>
-            </div>
-            <div class="acc-block-right">
-                {{ password_form.old_password }}{{ password_form.old_password.errors.as_text }}
-                <br>
-                <i class="pass"></i>{{ password_form.new_password1 }}{{ password_form.new_password1.errors.as_text }}
-                <br>
-                {{ password_form.new_password2 }}{{ password_form.new_password2.errors.as_text }}
-                <br>
-                {% csrf_token %}
-            </div>
-            <input type="submit" value="OK" name="password">
-		    <div class="clear"></div>
-	    </div>
-    </form>
-    <div style="text-align: center">
-        <a href="{% url 'accounts:restore_password' %}" class="recovery-pass">{% trans 'Did you forget your account or password?' %}</a>
-    </div>
-</div>
-<footer>
-    {% include 'social_links.html' %}
-</footer>
-{% endblock %}

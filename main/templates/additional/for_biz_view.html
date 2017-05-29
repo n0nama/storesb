@@ -3,6 +3,7 @@
 
 {% block title %}{% trans 'For your business' %}{% endblock %}
 {% block content %}
+				{% if request.LANGUAGE_CODE == "ru" %}
         <h3 class="mh32">ПРИНЦИПЫ</h3>
 				<p>Предпринимательство и креативность – являются наиболее базовым и важными факторами бизнеса и роста всей нашей мировой экономики.</p>
 				<p>Один из способов измерения ценности предпринимательства – посмотреть на влияние компаний в контексте фондового рынка и циркуляции всей мировой экономики.</p>
@@ -24,4 +25,27 @@
 				<p>Меры нет. Есть только наши мысли заключенные в предмет. <br>
 				Пусть это вдохновит многих людей сделать первый шаг – создать свой собственный уникальный бизнес. </p>
 				<p>Немного веры в себя и Вы измените мир.</p>
+				{% else %}
+				<h3 class="mh32">PRINCIPLES</h3>
+				<p>Entrepreneurship and creativity are the most basic and important factors of business and the growth of the entire global economy.</p>
+				<p>One way to measure the value of entrepreneurship is to look at the influence of companies in the context of the stock market and the circulation of the entire global economy.</p>
+				<p>The most advanced countries have been benefitting for thousands of years already from the society that encouraging entrepreneurship and creativity. It is the core of a healthy society.</p>
+				<p>To create any business from just an embryonic concept in your head – isn’t it the genius of entrepreneurship?</p>
+				<p>The Internet increasingly democratizes innovations and reduces costs. Anyone can start his / her own business. <br>
+				In the digital world the dependence from a thick checkbook for starting a business is decreasing. For achieving success Intellectual capital, communication, and innovative technologies become increasingly important Instead.</p>
+				<p>All big companies started from something insignificant.
+				And always any enterprise has its share of mistakes and failures. 
+				Some will fail. Others will prosper. It has always been this way and always will. Our life is evolution.</p>
+				<p>But, ultimately, if you have intellectual capital and confidence in your project, you are already holding the key to success.</p>
+				<p>Intellectual capital always creates an advanced high-quality product on the basis of only a concept and idea. <br>
+				Entrepreneurs, especially in the high-tech sector, in the future will create and implement what we could only imagine, dream, and fantasize about in the past.</p>
+				<p>But special attention, as already mentioned above, is paid to support the economic system, which should always encourage entrepreneurship and creativity. After all, this was always one of the most important engines of our civilization’s progress.</p>
+				<p>If we want our country to really succeed in the third millennium, we need the public and private sectors to work in a symbiotic way. And they should always encourage creation of new companies.</p>
+				<p>This is not only a problem of any country in particular, but it is always a global task. Entrepreneurship should be encouraged around the world. Achieving the common goal of creating businesses should become everyone's aspiration, regardless of cultural and racial affiliation, geographic location, and personal religious and political views.
+				Entrepreneurship is not limited to our borders. Such limitation is an illusion.</p>
+				<p>The digital industry possesses transparent permeable boundaries.</p>
+				<p>There are no limits, but only our thoughts contained in an object. <br>
+				Let this inspire people to take the first step – to create their own unique business. </p>
+				<p>Just have some faith in yourself and you will change the world.</p>
+				{% endif %}
 {% endblock %}

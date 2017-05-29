@@ -3,6 +3,7 @@
 
 {% block title %}{% trans 'Rules' %}{% endblock %}
 {% block content %}
+				{% if request.LANGUAGE_CODE == "ru" %}
         <h3>ПРАВИЛА</h3>
 				<h4>Требования к продавцам и сайтам интернет – магазинов при продаже:</h4>
 				<ul>
@@ -46,4 +47,46 @@
 				Мы поможем Вам защитить Ваши деньги и покупки везде, где Вы оплачиваете и покупаете через наш сайт. <br>
 				В случае, если товар, который Вы заказали, не был отослан и доставлен или он существенно отличается от описания на сайте, мы поможем Вам вернуть стоимость вашей покупки.</p>
 				<p>Sell-n-Buy  предлагает всем Вам участие в Программе защиты покупателей. Мы надеемся, что это будет способствовать развитию честных отношений между покупателями и продавцами и разрешению конфликтных ситуаций, возникающих между пользователями, а также поможет защитить интересы покупателей, приобретающих товары на условиях предварительной оплаты, как наименее защищенной стороны спора.</p>
+			{% else %}
+			<h3>REGULATIONS</h3>
+				<h4>SALE REQUIREMENTS FOR SELLERS AND INTERNET SHOPS SITES:</h4>
+				<ul>
+					<li>The name of the user, his / her legal or actual address, phone number and e-mail address, and the site (if available) of the seller or organization, selling goods and services, should be entered on the seller's or online store's page.</li>
+					<li>Any additional personal Internet resource, associated with the seller or online store, can be a site of the online store.</li>
+					<li>A list of categories of goods and lots, listed in an application for Sell-n-Buy, must fully correspond to the list of categories of goods and services offered on the website of the online store.</li>
+					<li>Goods and lots, sold by the seller or online store, must be described in detail. The description should include the characteristics, consumer properties and price of the goods and services offered.</li>
+					<li>On the seller's or online store's page the terms, procedure and timetable of delivery should be mentioned, as well as a list of regions, cities and towns where the delivery is carried out, including such places outside the country where the seller or the online store is actually located, if such delivery services are provided.</li>
+					<li>On the seller's or online store's page there should be information about restrictions on export activities (if any).</li>
+					<li>On the seller's or online store's page there should be about the conditions and procedure for money refunding and canceling of the transaction. In the case if such procedures are not provided by the seller or online store, they are obliged to inform buyers about this on their pages or in private messages.</li>
+				</ul>
+				<h4>MANDATORY REQUIREMENTS FOR A PRIVATE PERSON, INDIVIDUAL ENTREPRENEUR, OR LEGAL ENTITY SELLING GOODS OR SERVICES ON SELL-N-BUY:</h4>
+				<ul>
+					<li>A seller on Sell-n-Buy can be any private person or legal entity that is a resident of any country and any state.</li>
+					<li>
+						It is prohibited to use the system and platform of the Sell-n-Buy for sale of:
+						<br>
+						<br>
+						<ul>
+							<li>Alcohol products</li>
+							<li>Tobacco products</li>
+							<li>Narcotic drugs</li>
+							<li>Medication</li>
+							<li>"Entertainment for adults" goods and pornography</li>
+							<li>Other goods prohibited or restricted for free sale by the laws of the Country, in which the seller or the online store are located.</li>
+							<li>The display of goods prohibited for the international shipment and goods prohibited for sale by the Sell-n-Buy platform itself (alcoholic beverages, narcotic drugs, tobacco products, medication, weapons, explosives, goods that violate copyrights or intellectual property rights; goods, undermining the state system, inciting interethnic strife, inter-religious strife and violating intercultural competence, promoting racial discrimination, pornography, etc.).</li>
+						</ul>
+						<p>Lots with prohibited goods on Sell-n-Buy will be simply withdrawn from the auction, and in case of repeated violations, the account of a seller or online store may be temporarily or permanently blocked. There is also such punishment as a temporary restriction of the ability to place lots for sale. If the prohibited goods are found by the customs service upon shipment, they can be confiscated.</p>
+					</li>
+				</ul>
+				<h3 class="mh3">BUYERS’ PROTECTION PROGRAM</h3>
+				<p>If you have any problems, when making transaction on our website, the buyers’ protection program will be applied.</p>
+				<p>The Buyers’ Protection Program allows buyers to get their money back in the case, if:</p>
+				<ul style="margin-left:16px;">
+					<li>The goods are not received</li>
+					<li>The received goods essentially do not correspond to the description</li>
+				</ul>
+				<p>Most online purchases, using our website, are successful, and all parties are satisfied with their deals. But we know and understand that sometimes unforeseen and unpleasant situations can occur. We will help you to protect your money and purchases wherever you pay and buy through our website. <br>
+				In the case if the goods you ordered were not shipped and delivered or it differs significantly from the description on the website, we will help you to return your money.</p>
+				<p>Sell-n-Buy offers you participation in the Buyers’ Protection Program. We hope that this will promote honest relations between buyers and sellers and resolution of conflicts between users. This Program will also help to protect the interests of buyers who purchase goods on prepayment terms and the less protected party in the case of any dispute.</p>
+			{% endif %}
 {% endblock %}

@@ -20,7 +20,7 @@ class SocialNetwork(BaseModel):
     SocialNetwork model. Store access tokens and name of soc. networks.
     """
     NETWORKS = (
-        (VK, "VK"),
+        (VK, "vKontakte"),
         (FACEBOOK, "Facebook"),
         (PINTEREST, "Pinterest"),
         (TWITTER, "Twitter"),
@@ -137,8 +137,11 @@ class UserProfile(BaseModel):
         return count_lists
 
     def get_subscription_count(self):
-        my_list = Subscribers.objects.get(owner=self.user)
-        count = my_list.users.count()
+        try:
+            my_list = Subscribers.objects.get(owner=self.user)
+            count = my_list.users.count()
+        except:
+            count = 0
         return count
 
     def get_user_tags(self):

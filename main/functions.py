@@ -2,7 +2,6 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 
-
 def send_user_notification(subject, notification, from_email, to_email):
     """
     Send notification to user

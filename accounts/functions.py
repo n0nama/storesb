@@ -103,6 +103,9 @@ def activate_profile(field, code, request):
                 return True
             else:
                 return False
+        else:
+            messages.success(request, _("""You already have an account!"""))
+            return False
 
 
 def define_theme(request):

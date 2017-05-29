@@ -1,6 +1,8 @@
 import os
 import django
 
+from uwsgidecorators import *
+
 import tornado.web
 import tornado.websocket
 import tornado.ioloop
@@ -98,8 +100,10 @@ class SendMessageHandler(tornado.websocket.WebSocketHandler):
         :return:
         """
         LISTENERS.remove(self)
-
     def check_origin(self, origin):
+        return bool(re.match(r'^.*?\.storesb\.com', origin))
+   
+    '''def check_origin(self, origin):
         """Override to enable support for allowing alternate origins.
 
         The ``origin`` argument is the value of the ``Origin`` HTTP
@@ -145,7 +149,7 @@ class SendMessageHandler(tornado.websocket.WebSocketHandler):
         TODO: rewrite correctly
 
         """
-        return True
+        return True'''
 
 
 class SetStatusHandler(tornado.websocket.WebSocketHandler):
@@ -229,7 +233,7 @@ class SetStatusHandler(tornado.websocket.WebSocketHandler):
         """
         return True
 
-
+@postfork
 if __name__ == "__main__":
     tornado.options.parse_command_line()
     app = tornado.web.Application(handlers=[

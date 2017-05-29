@@ -84,7 +84,7 @@ def registration_page(request):
                     </a> \n
                     Thank you!""".format(username=new_user.username, site=get_current_site(request),
                                          token=activation.token))
-                send_email_task.delay("Activate your account", email_message, EMAIL_HOST_USER, new_user.email)
+                send_email_task("Activate your account", email_message, EMAIL_HOST_USER, new_user.email)
                 email_form_text = _("""On this E-mail has been sent a letter.
                 Click the link contained in it to complete the registration.""")
             if cd['phone']:
@@ -98,22 +98,21 @@ def registration_page(request):
                     return render(request, "registration.html", {"form": form, 'email_form_text': email_form_text,
                                                  'phone_form_text': phone_form_text, 'timer_active': timer_active})
                 except UserProfile.DoesNotExist:
-                    pass
-                new_user = User(email=cd['email'], is_active=False,
+                    new_user = User(email=cd['email'], is_active=False,
                                 username=generate_object_field(DIGITS, 6, User, 'username'))
-                new_user.save()
-                profile_user = UserProfile(user=new_user, slug=new_user.username, phone=cd['phone'])
-                profile_user.save()
-                activation = ActivationProfile(user=new_user,
+                    new_user.save()
+                    profile_user = UserProfile(user=new_user, slug=new_user.username, phone=cd['phone'])
+                    profile_user.save()
+                    activation = ActivationProfile(user=new_user,
                                                sms_key=generate_object_field(DIGITS, 6, ActivationProfile, 'sms_key'),
                                                valid_through=tomorrow)
-                activation.save()
-                text = "Your username: {username}. Your activation code on site {site} is: {code}".format(
-                    username=new_user.username, site=get_current_site(request), code=activation.sms_key)
-                send_api_request_task.delay(cd['phone'], text)
-                phone_form_text = SMS_INFO
-                timer_active = True
-                return render(request, "confirm_phone_code.html", {"form": form})
+                    activation.save()
+                    text = "Your username: {username}. Your activation code on site {site} is: {code}".format(
+                        username=new_user.username, site=get_current_site(request), code=activation.sms_key)
+                    send_api_request_task(cd['phone'], text)
+                    phone_form_text = SMS_INFO
+                    timer_active = True
+                    return render(request, "confirm_phone_code.html", {"form": form})
             if cd['confirm_code']:
                 if activate_profile('sms_key', cd['confirm_code'], request):
                     return redirect(reverse('accounts:reset_password'))
@@ -244,7 +243,7 @@ def restore_send_email(request):
                                          link=reverse('accounts:password_reset_link',
                                                       kwargs={'token': activation.token}),
                                          username=user.username))
-                send_email_task.delay("Request for password reset", email_message, EMAIL_HOST_USER, user.email)
+                send_email_task("Request for password reset", email_message, EMAIL_HOST_USER, user.email)
                 return render(request, 'reset_email_sent.html')
         form_phone = PasswordResetPhoneForm()
         form_confirm = PasswordResetConfirmPhoneForm()
@@ -284,15 +283,13 @@ def restore_send_sms(request):
                 activation.save()
                 text = "Your password reset code on site {site} is: {code}".format(site=get_current_site(request),
                                                                                    code=activation.sms_key)
-                send_api_request_task.delay(cd['phone'], text)
+                send_api_request_task(cd['phone'], text)
                 messages.success(request, _("Reset code was sent to your phone"))
                 phone_form_text = SMS_INFO
                 timer_active = True
         else:
             messages.error(request, _("Incorrect phone number"))
-        return render(request, 'restore.html', {'form_email': form_email, 'form_phone': form_phone,
-                                                'form_confirm': form_confirm, 'phone_form_text': phone_form_text,
-                                                'timer_active': timer_active})
+        return render(request, 'restore_phone_code.html', {'form_confirm': form_confirm, 'phone_form_text': phone_form_text })
     else:
         return HttpResponse("Incorrect request")
 
@@ -305,13 +302,15 @@ def password_confirm_code(request):
     if error in form or code is invalid - show error page.
     :param request: HttpRequest (accept POST method)
     """
+    phone_form_text = None
+    form_confirm = PasswordResetConfirmPhoneForm()
     if request.method == 'POST':
         form_confirm = PasswordResetConfirmPhoneForm(request.POST)
         if form_confirm.is_valid():
             cd = form_confirm.cleaned_data
             if activate_profile('sms_key', cd['confirm_code'], request):
                 return redirect(reverse('accounts:reset_password'))
-        return render(request, 'error.html')
+        return render(request, 'restore_phone_code.html', {'form_confirm': form_confirm, 'phone_form_text': phone_form_text })
     else:
         return HttpResponse("Incorrect request")
 
@@ -362,7 +361,7 @@ def user_page(request, user_slug):
     one_count = profile.get_mark_count_about(1.5) + profile.get_mark_count_about(1)
     average_mark = round(profile.get_about_average_mark(), 1)
     all_to_user_sold_orders = profile.user.my_sold_orders.all().values_list('buyer', flat=True)
-    goods_with_max_likes = Good.active.annotate(count=Count('users_like')).order_by('-count')[:7]
+    goods_with_max_likes = Good.active.annotate(count=Count('users_like')).order_by('-count')[:6]
     return render(request, 'user_page.html', {'searchform': searchform, 'profile': profile,
                                               'about_reviews': about_reviews, 'user_goods': user_goods,
                                               'goods_with_max_likes': goods_with_max_likes,
@@ -415,13 +414,14 @@ def add_review(request):
     :param request: HttpRequest (contains 'user_id', 'mark' and  'text').
     :return: JsonResponse
     """
-    try:
-        about_user = User.objects.get(pk=request.POST['user_id'])
-    except (UserProfile.DoesNotExist, UserProfile.MultipleObjectsReturned):
-        return JsonResponse({'status': 'error'})
-    if request.user != about_user:
+    #try:
+        #about_user = User.objects.get(pk=request.POST['user_id'])
+    #except (UserProfile.DoesNotExist, UserProfile.MultipleObjectsReturned):
+        #return JsonResponse({'status': 'error'})
+    about_user = User.objects.get(pk=request.POST['user_id'])
+    if request.user.pk != about_user.pk:
         all_to_user_sold_orders = about_user.my_sold_orders.all().values_list('buyer', flat=True)
-        if request.user.pk in all_to_user_sold_orders:
+        if request.user.pk != about_user.pk:#in all_to_user_sold_orders:
             new_review = Reviews()
             new_review.author = request.user
             new_review.about_user = about_user
@@ -431,7 +431,7 @@ def add_review(request):
             return JsonResponse({'id': new_review.pk, 'text': new_review.text, 'mark': new_review.mark,
                                  'about': new_review.about_user.username, 'author': new_review.author.username,
                                  'status': 'ok', 'logo_url': request.user.profile.avatar.url })
-    return JsonResponse({'status': 'error'})
+    return JsonResponse({'status': 'error', 'user' : request.user.pk})
 
 
 @login_required

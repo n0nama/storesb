@@ -20,39 +20,34 @@
              		{% csrf_token %}
 							<input type="submit" id="input-link" value="" class="form__input--btn" />
 						</form>
-            <p class="form__desc">
-							{% if messages or form_email.email.errors %}
-                 {{ form_email.email.errors.as_text }}
-                 {% for message in messages %}
-                    {{ message }}
-                 {% endfor %}
-              {% else %}
-              		{% blocktrans %}
-                     Enter your e-mail, which you used when registering for Sell-n-Buy.
-                    <br>  We will send your password to this address.
-                  {% endblocktrans %}
-              {% endif %}
-						</p>
           </div>
+					<p class="form__desc"></p>
           <h2 class="content__heading">{% trans 'Reset your password using the telephone' %}</h2>
           <form action="{% url 'accounts:restore_send_sms' %}" method="post" class="form__holder">
               {% csrf_token %}
               {{ form_phone.phone|add_class_to_formfield:"form__input" }}
 							<input type="submit" id="input-link" value="" class="form__input--btn" />
           </form>
-          <form action="{% url 'accounts:password_confirm_code' %}" method="post" class="form__holder">
-						{% csrf_token %}
-            {{ form_confirm.confirm_code|add_class_to_formfield:"form__input" }}
-            <input type="submit" id="button-code" value="" class="form__input--btn" />
-          </form>
-          <p class="form__desc form__desc--tel invisible">
-						{% blocktrans %}
-               Enter the phone number that you used when registering for Sell-n-Buy.
-               <br> We will send your password to this number.
-            {% endblocktrans %}
-            {% if phone_form_text %}
-               {{ phone_form_text }}
-            {% endif %}
+					<p id="form_errors" class="form__desc">
+						<span id="restinfo">
+						{% if messages or form_email.email.errors or form_phone.phone.errors %}
+							{% for message in messages %}
+								{{ message }}
+							{% endfor %}
+							{% if email_form_text %}
+								{{ email_form_text }}
+							{% endif %}
+  						{% if phone_form_text %}
+  							{{ phone_form_text }}
+  						{% endif %}
+						{% else %}
+							{% blocktrans %}
+               Enter your email or phone number that you used when registering for Sell-n-Buy.
+               <br> We will send your password to this address or number.
+            	{% endblocktrans %}
+						{% endif %}
+						</span>
+						<span id="telinfo">{% trans 'Be sure, that your phone number starts with 8. Like 8900...' %}</span>
 					</p>
           <a href="javascript:history.back()" class="form__btn form__btn--back">{% trans 'back' %}</a>
 {% endblock %}

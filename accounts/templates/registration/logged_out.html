@@ -4,54 +4,43 @@
 {% load main_tags %}
 {% block title %}{% trans 'Logged out' %}{% endblock %}
 {% block scripts %}
-    <link rel="stylesheet" href="{% static 'css/login/Mstyle.css' %}" type="text/css" media="all">
-    <script type="text/javascript" src="{% static 'js/login/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/account/reset.css' %}" type="text/css" media="all">
+		<link rel="stylesheet" href="{% static 'css/account/styles.css' %}" type="text/css" media="all">
     <!--[if IE]>
 	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
 	    <script type="text/javascript" src="js/html5.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-	    $(document).ready(function() {
-	        var i = 1;
-	        $('#display-pass').click(function(){
-	            if(i==1) {
-		            $('#id_password').attr('type', 'text');
-		            i = 2;
-	            } else {
-		            $('#id_password').attr('type', 'password');
-		            i = 1;
-	            }
-	        });
-	    }); //Конец ready
-    </script>
 {% endblock %}
 {% block content %}
-    <body style="background:#636363 !important;">
-    <div id="wrapper" class="green">
-        <div id="form-box">
-            <p>{% trans 'Logged out' %}</p>
-            <p>
-                You have been successfully logged out.
-                <br>
-                You can <a href="{% url "accounts:login" %}">log-in again</a>.
-            </p>
-			<div id="social-title">{% trans 'Or you can sign in via' %}</div>
-			<ul id="social">
-				<li><a href="{% url 'social:begin' 'vk-oauth2' %}"></a></li>
-				<li><a href="{% url 'social:begin' 'facebook' %}"></a></li>
-				<li><a href="#"></a></li>
-				<li><a href="#"></a></li>
-				<li><a href="#"></a></li>
-				<li><a href="{% url 'social:begin' 'pinterest' %}"></a></li>
+	<!--<h2 class="content__heading"><a href="{% url 'accounts:registration' %}">{% trans 'Logged out' %}</a></h2>-->
+	<h3 id="logged_f_fix" class="content__heading">You have been successfully logged out.</h3>
+	<h3 id="logged_s_fix" class="content__subheading">You can <a href="{% url 'accounts:login' %}">log-in again</a>.</h3>
+			<p>{% trans 'Or you can sign in via' %}</p>
+			<ul id="social" class="content__social social">
+				<li class="social__item">
+					<a href="{% url 'social:begin' 'vk-oauth2' %}" class="social__link">
+						<i class="fa fa-vk" aria-hidden="true"></i>
+					</a>
+				</li>
+				<li class="social__item">
+					<a href="{% url 'social:begin' 'facebook' %}" class="social__link">
+						<i class="fa fa-facebook" aria-hidden="true"></i>
+					</a>
+				</li>
+				<li class="social__item">
+					<a href="{% url 'social:begin' 'pinterest' %}" class="social__link">
+						<i class="fa fa-pinterest" aria-hidden="true"></i>
+					</a>
+				</li>
 			</ul>
-			<div id="line"></div>
-			<div id="rev1">{% trans 'More than a 1000 items' %}</div>
-			<div id="rev2">
-                {% blocktrans %}
-                    Register in <span>45</span> seconds!
-                {% endblocktrans %}
-            </div>
+			<div class="content__links links">
+        <a href="#" class="links__item links__item--left">{% trans 'More than a 1000 items' %}</a>
+        <a href="#" class="links__item links__item--right">
+					{% blocktrans %}
+            Register in <span>45</span> seconds!
+          {% endblocktrans %}
+				</a>
+      </div>
 		</div>
 	</div>
-    </body>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Registration' %}{% endblock%}
+
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/registration/reset.css' %}" type="text/css" media="all">
+  	<link rel="stylesheet" href="{% static 'css/registration/styles.css' %}" type="text/css" media="all">
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/index/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/index/html5.js' %}"></script>
+    <![endif]-->
+{% endblock %}
+{% block content %}
+<form action="{% url 'accounts:password_confirm_code' %}" method="post">
+{% csrf_token %}
+  <h2 class="content__heading confirm">{% trans 'Reset your password using the telephone' %}</h2>
+  <div class="form__holder">
+{{ form_confirm.confirm_code|add_class_to_formfield:"form__input" }}
+  </div>
+<p class="form__desc form__desc--tel">{% for message in messages %}{{ message }}{% endfor %}</p>
+<input type="submit" class="form__btn form__btn--submit" value="{% trans 'Reset password' %}">
+</form>
+{% endblock %}

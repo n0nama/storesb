@@ -1,0 +1,23 @@
+/*.accurate_fields input,select {
+  height: 23px!important;
+}*/
+
+.radiocust{
+  padding:0!important;
+}
+
+.equal > .radiocust {
+  padding-right:5px!important;
+}
+
+.equal > .radiocust:last-child {
+  padding-right:0px!important;
+}
+
+#id_slug{
+  margin-bottom:2px;
+}
+
+.paddless{
+  padding:0!important;
+}

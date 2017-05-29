@@ -63,6 +63,14 @@ a {
   margin-bottom: 12px;
 }
 
+#logged_f_fix{
+	margin-top: 60px;
+}
+
+#logged_s_fix a{
+	color: blue;
+}
+
 .content__subheading {
   text-transform: lowercase;
   font-weight: bold;

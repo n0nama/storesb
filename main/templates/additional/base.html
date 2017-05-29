@@ -1,9 +1,13 @@
 {% load staticfiles %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="/static/css/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 <link rel="stylesheet" href="{% static 'css/adds/styles.css' %}" type="text/css" media="all">
 
 
@@ -17,17 +21,30 @@
 			</div>
 		</div>
 	</div>
-	<footer class="footer-line">
-		<h3>Присоединяйтесь к нам</h3>
-		<ul id="social">
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-		</ul>
-		<div id="copyright">Sell-n-buy. all rights reserved. все права защищены</div>
-	</footer>
+		<div class="ui grid container">
+			<div id="footer" class="sixteen wide center aligned column footer-line">
+            {% trans 'JOIN US' %}<br></br>
+            <a href="#" class="ui tiny circular grey icon button">
+                <i class="vk icon"></i>
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
+                <i class="facebook f icon"></i>
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
+                <i class="instagram icon"></i>
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
+                <i class="google plus icon"></i>
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
+                <i class="twitter icon"></i>
+            </a>
+            <a href="#" class="ui tiny circular grey icon button">
+                <i class="pinterest icon"></i>
+            </a>
+            <br></br>
+            SELL-N-BUY. ALL RIGHTS RESERVED.
+  			</div>
+			</div>
 </body>
 </html>
